@@ -50,11 +50,19 @@ export default async function handler(req, res) {
     } else {
       return res.status(404).json({ success: false, message: "لم يتم العثور على بيانات لهذا الفحص" });
     }
-  } catch (error) {
-    console.error("Error fetching Google Sheet:", error);
-    return res.status(500).json({ success: false, message: "حدث خطأ في السيرفر" });
-  }
+ } catch (error) {
+  console.error("Error fetching Google Sheet:", error);
+
+  // ✅ تعديل لإظهار تفاصيل الخطأ في الـ Logs والـ Response
+  return res.status(500).json({
+    success: false,
+    message: "حدث خطأ في السيرفر",
+    error: error.message, // يطبع الرسالة الحقيقية للخطأ
+  });
 }
+
+}
+
 
 
 
