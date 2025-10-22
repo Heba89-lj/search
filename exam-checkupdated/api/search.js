@@ -113,9 +113,11 @@ export default async function handler(req, res) {
     }
 
     const rows = data.values?.slice(1) || [];
-    const match = rows.find(
-      (r) => r[1]?.toString() === number.toString() && r[2]?.toString() === year.toString()
-    );
+  const match = rows.find((r) => 
+  r[0]?.toString().trim() === number.toString().trim() && 
+  r[1]?.toString().trim() === year.toString().trim()
+);
+
 
     if (match) {
       return res.status(200).json({
@@ -142,4 +144,5 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
