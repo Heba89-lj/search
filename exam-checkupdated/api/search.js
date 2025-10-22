@@ -37,13 +37,13 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
         result: {
-          number: match[0],        // رقم الفحص
-          year: match[1],          // السنة
-          caseNumber: match[2],    // رقم القضية
-          applicant: match[3],     // اسم مقدم الطلب
-          status: match[4],        // حالة الطلب
-          visa: match[5],          // التأشيرات
-          notes: match[6],         // ملاحظات
+          number: match[1],        // رقم الفحص
+          year: match[2],          // السنة
+          caseNumber: match[3],    // رقم القضية
+          applicant: match[4],     // اسم مقدم الطلب
+          status: match[5],        // حالة الطلب
+          visa: match[6],          // التأشيرات
+          notes: match[7],         // ملاحظات
         },
       });
     }
@@ -55,5 +55,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ success: false, message: "حدث خطأ في السيرفر" });
   }
 }
+
 
 
