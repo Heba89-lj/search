@@ -19,21 +19,34 @@ export default async function handler(req, res) {
     console.log("🔗 Requesting URL:", url);
 
     const response = await fetch(url);
-    const text = await response.text(); // بدل ما نعمل JSON على طول
 
-    // نحاول نعرف لو في خطأ من Google
-    if (!response.ok) {
-      console.error("❌ Response Error:", text);
+    // نقرأ النص أول مرة
+    const rawText = await response.text();
+
+    // نحاول نحوله JSON لو نقدر
+    let data;
+    try {
+      data = JSON.parse(rawText);
+    } catch (e) {
+      console.error("❌ Google API returned non-JSON:", rawText);
       return res.status(500).json({
         success: false,
-        message: "خطأ في الوصول إلى Google Sheet",
-        details: text, // نعرض محتوى الخطأ الحقيقي
+        message: "رد غير صالح من Google Sheets",
+        details: rawText,
       });
     }
 
-    const data = JSON.parse(text);
-    const rows = data.values?.slice(1) || [];
+    // لو Google رجعت خطأ واضح
+    if (!response.ok || data.error) {
+      console.error("❌ Google Sheets API error:", data.error || rawText);
+      return res.status(500).json({
+        success: false,
+        message: "خطأ في الوصول إلى Google Sheet",
+        details: data.error?.message || rawText,
+      });
+    }
 
+    const rows = data.values?.slice(1) || [];
     const match = rows.find(
       (r) => r[1]?.toString() === number.toString() && r[2]?.toString() === year.toString()
     );
