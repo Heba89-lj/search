@@ -11,8 +11,8 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: "ادخلي رقم الفحص والسنة" });
   }
 
-  const sheetId = process.env.SHEET_ID;        // من ENV variables على Vercel
-  const apiKey = process.env.GOOGLE_API_KEY;   // من ENV variables على Vercel
+  const sheetId = process.env.SHEET_ID;      // ENV variable على Vercel
+  const apiKey = process.env.GOOGLE_API_KEY; // ENV variable على Vercel
 
   try {
     const response = await fetch(
@@ -24,11 +24,12 @@ export default async function handler(req, res) {
     }
 
     const data = await response.json();
-    const rows = data.values;
+
+    // ✅ أهم تعديل: تخطي الصف الأول لأنه يحتوي على عناوين الأعمدة
+    const rows = data.values.slice(1); 
 
     // ابحث في الصفوف
-    // افترضنا الأعمدة:
-    // 0 = الاسم، 1 = رقم الفحص، 2 = السنة، 3 = رقم القضية، 4 = مقدم الطلب، 5 = حالة الفحص، 6 = ملاحظات
+    // عدل الأعمدة حسب ترتيب الشيت عندك
     const match = rows.find(
       (r) => r[1].toString() === number.toString() && r[2].toString() === year.toString()
     );
@@ -46,8 +47,7 @@ export default async function handler(req, res) {
           notes: match[7],         // ملاحظات
         },
       });
-    }
-    else {
+    } else {
       return res.status(404).json({ success: false, message: "لم يتم العثور على بيانات لهذا الفحص" });
     }
   } catch (error) {
