@@ -34,12 +34,28 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
   try {
     // ✅ أهم تعديل: مسار fetch مضبوط على Vercel
     const res = await fetch(`/api/search?number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}`);
-    const data = await res.json();
+    // const data = await res.json();
 
-    if (!res.ok) {
-      resultDiv.textContent = data.message || 'حدث خطأ أثناء البحث.';
-      return;
-    }
+    // if (!res.ok) {
+    //   resultDiv.textContent = data.message || 'حدث خطأ أثناء البحث.';
+    //   return;
+    // }
+
+
+    let data;
+try {
+  data = await res.json();
+} catch (jsonError) {
+  const text = await res.text();
+  console.error('🔴 الرد من السيرفر:', text);
+  resultDiv.textContent = `حدث خطأ فى السيرفر:\n${text}`;
+  return;
+}
+
+if (!res.ok) {
+  resultDiv.textContent = data.message || 'حدث خطأ أثناء البحث.';
+  return;
+}
 
     if (data.success) {
       const r = data.result || {};
@@ -68,5 +84,6 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
 
 </body>
 </html>
+
 
 
