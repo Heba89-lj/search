@@ -157,12 +157,16 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
     button:hover {
       background: #003580;
     }
-
+.table-wrapper{
+  width:100%;
+  overflow-x:auto;}
+    
     table {
       width: 100%;
       border-collapse: collapse;
       margin-top: 25px;
       text-align: center;
+      min-width:500px;
     }
 
     th, td {
@@ -188,13 +192,14 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
       }
 
       table {
-        display: block;
+        /* display: block;
         overflow-x: auto;
-        white-space: nowrap;
+        white-space: nowrap; */
+        font-size:13px;
       }
 
       input, button {
-        font-size:
+        font-size:16px;
   </style>
 </head>
 <body>
@@ -275,6 +280,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
   </script>
 </body>
 </html>
+
 
 
 
