@@ -128,11 +128,12 @@ export default async function handler(req, res) {
         result: {
           number: match[0],
           year: match[1],
-          caseNumber: match[2],
-          applicant: match[3],
-          status: match[4],
-          
-          notes: match[5],
+          caseNumber: match[3],
+          applicant: match[4],
+          status: match[5],
+                    visa: match[6],
+
+          notes: match[7],
         },
       });
     } else {
@@ -147,5 +148,6 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
 
