@@ -179,33 +179,22 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
     tr:nth-child(even) {
       background: #f9f9f9;
     }
-     @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        text-align: center;
+    
+    /* 🟢 لجعل التصميم متجاوب على الشاشات الصغيرة */
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 15px;
       }
 
-      header img {
-        width: 50px;
-      }
-
-      .header-text h2 {
-        font-size: 1.2rem;
-      }
-
-      .header-text h3 {
-        font-size: 0.9rem;
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
       }
 
       input, button {
-        width: 100%;
-        font-size: 14px;
-      }
-
-      #result {
-        font-size: 14px;
-      }
-    }
+        font-size:
   </style>
 </head>
 <body>
@@ -286,5 +275,6 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
   </script>
 </body>
 </html>
+
 
 
