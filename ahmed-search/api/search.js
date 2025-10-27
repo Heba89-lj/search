@@ -131,8 +131,8 @@ export default async function handler(req, res) {
           caseNumber: match[2],
           applicant: match[3],
           status: match[4],
-          visa: match[5],
-          notes: match[6],
+          
+          notes: match[5],
         },
       });
     } else {
@@ -147,4 +147,5 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
