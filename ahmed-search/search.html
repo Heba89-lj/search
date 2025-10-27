@@ -215,7 +215,9 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
 
     <button onclick="searchData()">بحث</button>
 
-    <table id="resultTable" style="display:none;">
+   
+<div class="table-wrapper">
+ <table id="resultTable" style="display:none;">
       <thead>
         <tr>
           <th>رقم الفحص</th>
@@ -231,6 +233,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
       <tbody id="resultBody"></tbody>
     </table>
 
+   </div>
     <p id="message" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
   </div>
 
@@ -280,6 +283,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
   </script>
 </body>
 </html>
+
 
 
 
