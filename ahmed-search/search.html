@@ -179,6 +179,33 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
     tr:nth-child(even) {
       background: #f9f9f9;
     }
+     @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header img {
+        width: 50px;
+      }
+
+      .header-text h2 {
+        font-size: 1.2rem;
+      }
+
+      .header-text h3 {
+        font-size: 0.9rem;
+      }
+
+      input, button {
+        width: 100%;
+        font-size: 14px;
+      }
+
+      #result {
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -259,4 +286,5 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
   </script>
 </body>
 </html>
+
 
