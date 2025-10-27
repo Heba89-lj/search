@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ar">
 <head>
   <meta charset="UTF-8">
@@ -12,5 +12,128 @@
   <h1>الاستعلام عن الفحص</h1>
   <button onclick="window.location.href='search.html'">الاستفسار عن الفحص</button>
 </body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>الاستعلام عن الفحص</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- خطوط -->
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Cairo", sans-serif;
+      background: linear-gradient(to bottom right, #0a1f44, #1e3c72, #2a5298);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ✅ الهيدر */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 15px 25px;
+      color: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    header img {
+      width: 70px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .header-text {
+      text-align: center;
+      flex-grow: 1;
+      font-weight: bold;
+    }
+
+    .header-text h2 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .header-text h3 {
+      margin: 5px 0 0;
+      font-size: 1rem;
+      font-weight: normal;
+    }
+
+    .left-text {
+      font-weight: bold;
+      font-size: 1rem;
+      white-space: nowrap;
+    }
+
+    /* ✅ المحتوى الرئيسي */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background-color: #5b6a7a;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background-color: #80b0e4;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      header img {
+        width: 60px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ الهيدر -->
+  <header>
+    <img src="/images/background.png" alt="شعار النيابة">
+    <div class="header-text">
+      <h2>النيابة العامة</h2>
+      <h3>وحدة الفحص المتنوع</h3>
+    </div>
+    <div class="left-text">جمهورية مصر العربية</div>
+  </header>
+
+  <!-- ✅ المحتوى الرئيسي -->
+  <main>
+    <button onclick="window.location.href='search.html'">الاستعلام عن الفحص</button>
+  </main>
+
+</body>
 </html>
+
 
