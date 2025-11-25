@@ -191,7 +191,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
 
 <body>
 
-  <div class="container">
+  <!-- <div class="container">
     <h1>الاستعلام عن نتيجة الفحص</h1>
 
     <label for="number">رقم الفحص:</label>
@@ -221,52 +221,139 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
 
    </div>
     <p id="message" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
+  </div> -->
+
+  <div class="container">
+  <h1>الاستعلام عن نتيجة الفحص</h1>
+
+  <!-- محرك البحث 1: رقم الفحص + السنة -->
+  <label>بحث برقم الفحص :</label>
+  <input type="text" id="number" placeholder="رقم الفحص" />
+  <input type="text" id="year" placeholder="السنة" />
+
+  <!-- محرك البحث 2: رقم القضية -->
+  <label>بحث برقم القضية:</label>
+  <input type="text" id="caseNumber" placeholder="رقم القضية" />
+
+  <!-- محرك البحث 3: الرقم القومي أو جواز السفر -->
+  <label>بحث بالرقم القومي أو جواز السفر:</label>
+  <select id="idType">
+    <option value="">-- اختر النوع --</option>
+    <option value="nationalId">رقم قومي</option>
+    <option value="passport">جواز سفر</option>
+  </select>
+  <input type="text" id="identifier" placeholder="ادخل الرقم" />
+
+  <button onclick="searchData()">بحث</button>
+
+  <div class="table-wrapper">
+    <table id="resultTable" style="display:none;">
+      <tbody id="resultBody"></tbody>
+    </table>
   </div>
 
+  <p id="message" style="text-align:center; font-weight:bold; margin-top:20px;"></p>
+</div>
+
   <script>
+    // async function searchData() {
+    //   const number = document.getElementById("number").value.trim();
+    //   const year = document.getElementById("year").value.trim();
+    //   const message = document.getElementById("message");
+    //   const table = document.getElementById("resultTable");
+    //   const body = document.getElementById("resultBody");
+
+    //   message.textContent = "";
+    //   table.style.display = "none";
+    //   body.innerHTML = "";
+
+    //   if (!number || !year) {
+    //     message.textContent = "من فضلك أدخلي رقم الفحص والسنة.";
+    //     return;
+    //   }
+
+    //   try {
+    //     const response = await fetch(`/api/search?number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}`);
+    //     const data = await response.json();
+
+    //     if (data.success) {
+    //       const r = data.result;
+    //       const row = `
+    //         <tr>
+    //           <td>${r.number}</td>
+    //           <td>${r.year}</td>
+    //           <td>${r.caseNumber}</td>
+    //           <td>${r.applicant}</td>
+    //           <td>${r.status}</td>
+    //           <td>${r.visa}</td>
+    //           <td>${r.notes}</td>
+    //         </tr>`;
+    //       body.innerHTML = row;
+    //       table.style.display = "table";
+    //     } else {
+    //       message.textContent = data.message || "لم يتم العثور على بيانات.";
+    //     }
+    //   } catch (err) {
+    //     console.error(err);
+    //     message.textContent = "حدث خطأ أثناء البحث.";
+    //   }
+    // }
+
     async function searchData() {
-      const number = document.getElementById("number").value.trim();
-      const year = document.getElementById("year").value.trim();
-      const message = document.getElementById("message");
-      const table = document.getElementById("resultTable");
-      const body = document.getElementById("resultBody");
+  const number = document.getElementById("number").value.trim();
+  const year = document.getElementById("year").value.trim();
+  const caseNumber = document.getElementById("caseNumber").value.trim();
+  const idType = document.getElementById("idType").value;
+  const identifier = document.getElementById("identifier").value.trim();
 
-      message.textContent = "";
-      table.style.display = "none";
-      body.innerHTML = "";
+  const message = document.getElementById("message");
+  const table = document.getElementById("resultTable");
+  const body = document.getElementById("resultBody");
 
-      if (!number || !year) {
-        message.textContent = "من فضلك أدخلي رقم الفحص والسنة.";
-        return;
-      }
+  message.textContent = "";
+  body.innerHTML = "";
+  table.style.display = "none";
 
-      try {
-        const response = await fetch(`/api/search?number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}`);
-        const data = await response.json();
+  if (!number && !caseNumber && !(idType && identifier)) {
+    message.textContent = "من فضلك أدخلي بيانات للبحث.";
+    return;
+  }
 
-        if (data.success) {
-          const r = data.result;
-          const row = `
-            <tr>
-              <td>${r.number}</td>
-              <td>${r.year}</td>
-              <td>${r.caseNumber}</td>
-              <td>${r.applicant}</td>
-              <td>${r.status}</td>
-              <td>${r.visa}</td>
-              <td>${r.notes}</td>
-            </tr>`;
-          body.innerHTML = row;
-          table.style.display = "table";
-        } else {
-          message.textContent = data.message || "لم يتم العثور على بيانات.";
-        }
-      } catch (err) {
-        console.error(err);
-        message.textContent = "حدث خطأ أثناء البحث.";
-      }
+  let apiUrl = `/api/search?`;
+  if (number && year) apiUrl += `number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}&`;
+  if (caseNumber) apiUrl += `caseNumber=${encodeURIComponent(caseNumber)}&`;
+  if (idType && identifier) apiUrl += `${idType}=${encodeURIComponent(identifier)}&`;
+
+  try {
+    const res = await fetch(apiUrl);
+    const data = await res.json();
+
+    if (!data.success) {
+      body.innerHTML = `<tr><td colspan="2">${data.message}</td></tr>`;
+      table.style.display = "table";
+      return;
     }
+
+    const r = data.result;
+    body.innerHTML = `
+      <tr><th>رقم الفحص</th><td>${r.number}</td></tr>
+      <tr><th>السنة</th><td>${r.year}</td></tr>
+      <tr><th>رقم القضية</th><td>${r.caseNumber}</td></tr>
+      <tr><th>اسم مقدم الطلب</th><td>${r.applicant}</td></tr>
+      <tr><th>حالة الفحص</th><td>${r.status}</td></tr>
+      <tr><th>ماتم في الفحص</th><td>${r.visa}</td></tr>
+      <tr><th>ملاحظات</th><td>${r.notes}</td></tr>
+    `;
+    table.style.display = "table";
+  } catch (err) {
+    console.error(err);
+    body.innerHTML = "<tr><td colspan='2'>حدث خطأ أثناء البحث</td></tr>";
+    table.style.display = "table";
+  }
+}
+
   </script>
 </body>
+
 
 </html>
