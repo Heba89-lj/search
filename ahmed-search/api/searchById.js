@@ -9,14 +9,19 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: "ادخلي الرقم القومي أو جواز السفر" });
   }
 
-  // 🟢 normalize لتجاهل الفراغات والأرقام العربية والحروف الكبيرة/الصغيرة
-  const normalize = (str = "") =>
-    str
-      .replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)) // تحويل الأرقام العربية
-      .replace(/\s+/g, "") // إزالة الفراغات
-      .trim()
-      .toLowerCase(); // تجاهل فرق الحروف الكبيرة والصغيرة
 
+
+
+// 🔥 Normalize قوي جدًا يتعامل مع جواز السفر المختلط
+const normalize = (str = "") =>
+  str
+    .toLowerCase()                           // توحيد الحروف
+    .replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d))  // تحويل الأرقام العربية
+    .replace(/[^a-z0-9]/gi, "")              // إزالة أي شيء غير حرف إنجليزي أو رقم
+    .normalize("NFKD")                       // إزالة أشكال Unicode الغريبة
+    .trim();
+
+  
   const nid = normalize(nationalId);
 
   const sheetId = process.env.SHEET_ID;
@@ -71,5 +76,6 @@ export default async function handler(req, res) {
     });
   }
 }
+
 
 
