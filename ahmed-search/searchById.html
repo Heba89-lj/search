@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar">
 
 <head>
@@ -13,11 +13,28 @@
     input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 20px; font-size: 16px; text-align: right; }
     button { background: #004aad; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; display: block; margin: 0 auto; font-size: 16px; transition: 0.3s; }
     button:hover { background: #003580; }
-    table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: center; min-width: 500px; }
-    .table-wrapper { width: 100%; overflow-x: auto; border-radius: 8px; }
-    th, td { border: 1px solid #ddd; padding: 10px; }
-    th { background: #004aad; color: white; font-weight: bold; }
-    tr:nth-child(even) { background: #f9f9f9; }
+
+    /* تنسيق العرض الجديد */
+    .result-box { 
+      width: 100%; 
+      background: #fff; 
+      border-radius: 10px; 
+      padding: 10px 0; 
+      margin-top: 25px; 
+      border: 1px solid #ddd;
+    }
+    .row-line {
+      display: flex;
+      padding: 12px 15px;
+      font-size: 16px;
+    }
+    .row-line b { width: 200px; display: inline-block; color: #004aad; }
+    .separator {
+      width: 100%; 
+      height: 1px; 
+      background: #e0e0e0; 
+      margin: 0;
+    }
   </style>
 </head>
 
@@ -31,22 +48,8 @@
 
   <button onclick="searchData()">بحث</button>
 
-  <div class="table-wrapper">
-    <table id="resultTable" style="display:none;">
-      <thead>
-        <tr>
-          <th>رقم الفحص</th>
-          <th>السنة</th>
-          <th>رقم القضية</th>
-          <th>اسم مقدم الطلب</th>
-          <th>حالة الفحص</th>
-          <th>ماتم فى الفحص</th>
-          <th>ملاحظات</th>
-        </tr>
-      </thead>
-      <tbody id="resultBody"></tbody>
-    </table>
-  </div>
+  <div id="resultBox" class="result-box" style="display:none;"></div>
+
   <p id="message" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
 </div> 
 
@@ -54,12 +57,11 @@
 async function searchData() {
   const nationalId = document.getElementById("nationalId").value.trim();
   const message = document.getElementById("message");
-  const table = document.getElementById("resultTable");
-  const body = document.getElementById("resultBody");
+  const box = document.getElementById("resultBox");
 
   message.textContent = "";
-  table.style.display = "none";
-  body.innerHTML = "";
+  box.style.display = "none";
+  box.innerHTML = "";
 
   if (!nationalId) {
     message.textContent = "من فضلك أدخل الرقم القومي أو جواز السفر.";
@@ -72,18 +74,33 @@ async function searchData() {
 
     if (data.success) {
       const r = data.result;
-      const row = `
-        <tr>
-          <td>${r.number}</td>
-          <td>${r.year}</td>
-          <td>${r.caseNumber}</td>
-          <td>${r.applicant}</td>
-          <td>${r.status}</td>
-          <td>${r.visa}</td>
-          <td>${r.notes}</td>
-        </tr>`;
-      body.innerHTML = row;
-      table.style.display = "table";
+
+      // هضيف فواصل بين كل بيان
+      const html = `
+        <div class="row-line"><b>رقم الفحص:</b> <span>${r.number}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>السنة:</b> <span>${r.year}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>رقم القضية:</b> <span>${r.caseNumber}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>اسم مقدم الطلب:</b> <span>${r.applicant}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>حالة الفحص:</b> <span>${r.status}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>ماتم فى الفحص:</b> <span>${r.visa}</span></div>
+        <div class="separator"></div>
+
+        <div class="row-line"><b>ملاحظات:</b> <span>${r.notes}</span></div>
+      `;
+
+      box.innerHTML = html;
+      box.style.display = "block";
+
     } else {
       message.textContent = data.message || "لم يتم العثور على بيانات.";
     }
@@ -96,8 +113,8 @@ async function searchData() {
 
 </body>
 </html>
- -->
-<!DOCTYPE html>
+
+<!-- <!DOCTYPE html>
 <html lang="ar">
 
 <head>
@@ -189,3 +206,4 @@ async function searchData() {
 
 </body>
 </html>
+ -->
