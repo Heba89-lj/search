@@ -187,7 +187,7 @@
 
 
  -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ar">
 
 <head>
@@ -352,4 +352,154 @@
 
 </body>
 
+</html>
+ -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>الاستعلام عن نتيجة الفحص</title>
+  <style>
+    body {
+      font-family: "Cairo", sans-serif;
+      direction: rtl;
+      background: linear-gradient(135deg, #f2f6fc, #dce3f0);
+      margin: 0;
+      padding: 0;
+      color: #333;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #004aad;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 90%;
+      max-width: 300px;
+      padding: 10px;
+      margin: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      text-align: right;
+    }
+
+    button {
+      background: #004aad;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 10px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #003580;
+    }
+
+    table {
+      width: 95%;
+      max-width: 800px;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #789ec7;
+      color: white;
+      padding: 10px;
+      width: 35%;
+      text-align: right;
+    }
+
+    td {
+      color: black;
+      padding: 10px;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .prewrap { white-space: pre-wrap; }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>الاستعلام عن نتيجة الفحص</h1>
+
+  <input type="text" id="number" placeholder="أدخل رقم الفحص">
+  <input type="text" id="year" placeholder="أدخل السنة">
+  <button onclick="searchData()">بحث</button>
+
+  <div id="result"></div>
+  <p id="message"></p>
+</div>
+
+<script>
+  async function searchData() {
+    const number = document.getElementById("number").value.trim();
+    const year = document.getElementById("year").value.trim();
+    const resultDiv = document.getElementById("result");
+    const message = document.getElementById("message");
+
+    resultDiv.innerHTML = "";
+    message.textContent = "";
+
+    if (!number || !year) {
+      message.textContent = "من فضلك أدخل رقم الفحص والسنة.";
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/search?number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}`);
+      const data = await res.json();
+
+      if (data.success) {
+        const r = data.result;
+
+        resultDiv.innerHTML = `
+          <table>
+            <tr><th>رقم الفحص</th><td>${r.number || "-"}</td></tr>
+            <tr><th>السنة</th><td>${r.year || "-"}</td></tr>
+            <tr><th>رقم القضية</th><td>${r.caseNumber || "-"}</td></tr>
+            <tr><th>اسم مقدم الطلب</th><td>${r.applicant || "-"}</td></tr>
+            <tr><th>حالة الفحص</th><td>${r.status || "-"}</td></tr>
+            <tr><th>ما تم في الفحص</th><td class="prewrap">${r.visa || "-"}</td></tr>
+            <tr><th>ملاحظات</th><td class="prewrap">${r.notes || "-"}</td></tr>
+          </table>
+        `;
+      } else {
+        message.textContent = data.message || "لم يتم العثور على بيانات.";
+      }
+
+    } catch (err) {
+      console.error(err);
+      message.textContent = "حدث خطأ أثناء البحث.";
+    }
+  }
+</script>
+
+</body>
 </html>
