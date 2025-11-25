@@ -229,12 +229,15 @@
 <body>
 
 <div class="container">
-  <h1>الاستعلام برقم القضية</h1>
+    <h1>الاستعلام عن نتيجة الفحص</h1>
 
-  <label for="caseNumber">رقم القضية:</label>
-  <input type="text" id="caseNumber" placeholder="أدخل رقم القضية" />
+    <label for="number">رقم الفحص:</label>
+    <input type="text" id="number" placeholder="أدخل رقم الفحص" inputmode="numeric" />
 
-  <button onclick="searchData()">بحث</button>
+    <label for="year">السنة:</label>
+    <input type="text" id="year" placeholder="أدخل السنة" inputmode="numeric" />
+
+    <button onclick="searchData()">بحث</button>
 
   <div id="resultBox" class="result-box" style="display:none;"></div>
 
