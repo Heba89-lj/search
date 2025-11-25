@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { caseNumber } = req.query;
 
   if (!caseNumber) {
-    return res.status(400).json({ success: false, message: "ادخلي رقم القضية" });
+    return res.status(400).json({ success: false, message: "ادخل رقم القضية" });
   }
 
   const sheetId = process.env.SHEET_ID;
@@ -57,3 +57,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
