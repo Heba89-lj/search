@@ -41,7 +41,7 @@ export default async function handler(req, res) {
     const rows = data.values?.slice(1) || [];
 
     // 🔍 البحث في العمود الذي يحتوي على الرقم القومي أو جواز السفر
-    const match = rows.find((r) => normalize(r[2]) === nid);
+    const match = rows.find((r) => normalize(r[2]) == nid);
 
     if (match) {
       return res.status(200).json({
@@ -71,3 +71,4 @@ export default async function handler(req, res) {
     });
   }
 }
+
