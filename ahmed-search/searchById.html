@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ar">
 
 <head>
@@ -83,6 +83,99 @@ async function searchData() {
           <td>${r.notes}</td>
         </tr>`;
       body.innerHTML = row;
+      table.style.display = "table";
+    } else {
+      message.textContent = data.message || "لم يتم العثور على بيانات.";
+    }
+  } catch (err) {
+    console.error(err);
+    message.textContent = "حدث خطأ أثناء البحث.";
+  }
+}
+</script>
+
+</body>
+</html>
+ -->
+<!DOCTYPE html>
+<html lang="ar">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>بحث بالرقم القومي أو جواز السفر</title>
+  <style>
+    body { font-family: "Cairo", sans-serif; direction: rtl; background: linear-gradient(135deg, #f2f6fc, #dce3f0); margin: 0; padding: 0; color: #333; }
+    .container { max-width: 800px; margin: 100px auto; background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }
+    h1 { text-align: center; color: #004aad; margin-bottom: 25px; font-weight: bold; }
+    label { font-weight: bold; display: block; margin-bottom: 8px; }
+    input { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 20px; font-size: 16px; text-align: right; }
+    button { background: #004aad; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; display: block; margin: 0 auto; font-size: 16px; transition: 0.3s; }
+    button:hover { background: #003580; }
+
+    table { width: 100%; border-collapse: collapse; margin-top: 25px; text-align: right; }
+    th { background: #004aad; color: white; font-weight: bold; width: 200px; }
+    td { background: #f9f9f9; }
+    .table-wrapper { width: 100%; overflow-x: auto; border-radius: 8px; }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>الاستعلام بالرقم القومي أو جواز السفر</h1>
+
+  <label for="nationalId">الرقم القومي أو جواز السفر:</label>
+  <input type="text" id="nationalId" placeholder="أدخل الرقم القومي أو جواز السفر" />
+
+  <button onclick="searchData()">بحث</button>
+
+  <div class="table-wrapper">
+
+    <table id="resultTable" style="display:none;">
+      <tbody id="resultBody"></tbody>
+    </table>
+
+  </div>
+
+  <p id="message" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
+</div> 
+
+<script>
+async function searchData() {
+  const nationalId = document.getElementById("nationalId").value.trim();
+  const message = document.getElementById("message");
+  const table = document.getElementById("resultTable");
+  const body = document.getElementById("resultBody");
+
+  message.textContent = "";
+  table.style.display = "none";
+  body.innerHTML = "";
+
+  if (!nationalId) {
+    message.textContent = "من فضلك أدخل الرقم القومي أو جواز السفر.";
+    return;
+  }
+
+  try {
+    const response = await fetch(`/api/searchById?nationalId=${encodeURIComponent(nationalId)}`);
+    const data = await response.json();
+
+    if (data.success) {
+      const r = data.result;
+
+      
+      body.innerHTML = `
+        <tr><th>رقم الفحص</th><td>${r.number}</td></tr>
+        <tr><th>السنة</th><td>${r.year}</td></tr>
+        <tr><th>رقم القضية</th><td>${r.caseNumber}</td></tr>
+        <tr><th>اسم مقدم الطلب</th><td>${r.applicant}</td></tr>
+        <tr><th>حالة الفحص</th><td>${r.status}</td></tr>
+        <tr><th>ماتم فى الفحص</th><td>${r.visa}</td></tr>
+        <tr><th>ملاحظات</th><td>${r.notes}</td></tr>
+      `;
+
       table.style.display = "table";
     } else {
       message.textContent = data.message || "لم يتم العثور على بيانات.";
