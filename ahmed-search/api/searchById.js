@@ -9,11 +9,13 @@ export default async function handler(req, res) {
     return res.status(400).json({ success: false, message: "ادخلي الرقم القومي أو جواز السفر" });
   }
 
+  // 🟢 normalize لتجاهل الفراغات والأرقام العربية والحروف الكبيرة/الصغيرة
   const normalize = (str = "") =>
-    str.replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
-       .replace(/\s+/g, "")
-       .trim()
-       .toLowerCase(); // لتجاهل الفرق بين الحروف الكبيرة والصغيرة
+    str
+      .replace(/[٠-٩]/g, (d) => "٠١٢٣٤٥٦٧٨٩".indexOf(d)) // تحويل الأرقام العربية
+      .replace(/\s+/g, "") // إزالة الفراغات
+      .trim()
+      .toLowerCase(); // تجاهل فرق الحروف الكبيرة والصغيرة
 
   const nid = normalize(nationalId);
 
@@ -38,10 +40,8 @@ export default async function handler(req, res) {
 
     const rows = data.values?.slice(1) || [];
 
-    // 🔍 البحث في عمود واحد للرقم القومي أو جواز السفر
-    const match = rows.find((r) =>
-      normalize(r[2]) === nid
-    );
+    // 🔍 البحث في العمود الذي يحتوي على الرقم القومي أو جواز السفر
+    const match = rows.find((r) => normalize(r[2]) === nid);
 
     if (match) {
       return res.status(200).json({
@@ -57,7 +57,10 @@ export default async function handler(req, res) {
         },
       });
     } else {
-      return res.status(404).json({ success: false, message: "لم يتم العثور على بيانات لهذا الرقم" });
+      return res.status(404).json({
+        success: false,
+        message: "لم يتم العثور على بيانات لهذا الرقم",
+      });
     }
   } catch (error) {
     console.error("🔥 Error fetching Google Sheet:", error);
