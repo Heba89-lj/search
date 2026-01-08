@@ -118,10 +118,43 @@
     <button onclick="window.location.href='searchById.html'">
       الاستعلام بالرقم القومى او جواز السفر
     </button>
-  </main>
+     <h1>النيابة العامة - وحدة المساعد الذكي</h1>
 
+  <div id="assistant-section">
+    <input id="q" placeholder="اكتب سؤالك هنا">
+    <button onclick="ask()">إرسال</button>
+    <p id="answer"></p>
+  </div>
+  </main>
+ <script>
+    async function ask() {
+      const question = document.getElementById("q").value.trim();
+      if (!question) {
+        document.getElementById("answer").innerText = "اكتب سؤالك أولاً";
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/assistant", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question })
+        });
+
+        if (!res.ok) throw new Error("حدث خطأ في جلب البيانات");
+
+        const data = await res.json();
+        document.getElementById("answer").innerText = data.answer;
+
+      } catch (error) {
+        console.error(error);
+        document.getElementById("answer").innerText = "حدث خطأ، حاول لاحقًا.";
+      }
+    }
+  </script>
 </body>
 </html>
+
 
 
 
