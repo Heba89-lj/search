@@ -91,7 +91,7 @@ export default async function handler(req, res) {
         }
       });
 
-      res.json({ answer: foundAnswer || "من فضلك راجع السؤال أو تواصل مع الدعم" });
+      res.json({ answer: foundAnswer || "من فضلك ممكن توضيح" });
 
     } catch (err) {
       console.error(err);
@@ -99,4 +99,5 @@ export default async function handler(req, res) {
     }
   });
 }
+
 
