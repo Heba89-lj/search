@@ -50,6 +50,8 @@ function normalizeArabic(text) {
     .replace(/^ال/g, "")                // إزالة ال التعريف
     .replace(/(ات|ون|ين|ة|ه|ي)$/g, "")  // جمع ونهايات
     .replace(/[^ء-ي\s]/g, "")           // إزالة أي رموز
+   .replace(/[أإآ]/g, "ا")
+
     .trim();
 }
 
@@ -97,3 +99,4 @@ export default async function handler(req, res) {
     }
   });
 }
+
