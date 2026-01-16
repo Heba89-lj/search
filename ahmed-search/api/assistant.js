@@ -43,7 +43,6 @@
 
 // }
 
-
 function normalizeArabic(text) {
   return text
     .toLowerCase()
