@@ -1,3 +1,4 @@
+// ده كود تطابق حرفى
 // export default async function handler(req, res) {
 
 //   if (req.method !== "POST") {
@@ -43,13 +44,13 @@
 // }
 
 
-// 🔹 دالة تطبيع عربي بسيطة
+// دالة لتطبيع الكلمات العربية (إزالة التشكيل، ال التعريف، نهايات الجمع، الرموز)
 function normalizeArabic(text) {
   return text
     .toLowerCase()
     .replace(/[ًٌٍَُِّْ]/g, "")          // إزالة التشكيل
-    .replace(/^ال/g, "")                // إزالة ال التعريف
-    .replace(/(ات|ون|ين|ة|ه|ي)$/g, "")  // جمع ونهايات
+    .replace(/^ال/g, "")                 // إزالة ال التعريف
+    .replace(/(ات|ون|ين|ة|ه|ي)$/g, "")  // إزالة نهايات الجمع والمفرد
     .replace(/[^ء-ي\s]/g, "")           // إزالة أي رموز
     .trim();
 }
@@ -66,6 +67,7 @@ export default async function handler(req, res) {
   req.on("end", async () => {
     try {
       const { question } = JSON.parse(body);
+
       if (!question) {
         return res.json({ answer: "اكتب سؤالك أولاً" });
       }
@@ -73,6 +75,7 @@ export default async function handler(req, res) {
       const sheetId = process.env.FAQ_SHEET_ID;
       const apiKey = process.env.FAQ_API_KEY;
 
+      // رابط Google Sheets API
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${sheetId}/values/Sheet1?key=${apiKey}`;
       const response = await fetch(url);
       const data = await response.json();
@@ -81,34 +84,40 @@ export default async function handler(req, res) {
         return res.json({ answer: "لا توجد بيانات" });
       }
 
-      const rows = data.values.slice(1);
+      const rows = data.values.slice(1); // تخطي رأس الشيت
 
-      // 🔹 تطبيع سؤال المستخدم
+      // تطبيع كلمات المستخدم
       const userWords = normalizeArabic(question)
         .split(/\s+/)
-        .filter(w => w.length > 2);
+        .filter(w => w.length > 1); // تجاهل الكلمات القصيرة جدًا
 
       let found = null;
 
+      // البحث في كل صف
       rows.some(row => {
-        const sheetWords = normalizeArabic(row[0])
-          .split(/\s+/);
+        // تقسيم المرادفات على "|" لكل صف وتطبيعها
+        const sheetVariants = row[0]
+          .split("|")
+          .map(v => normalizeArabic(v).split(/\s+/));
 
-        const match = userWords.some(uWord =>
-          sheetWords.some(sWord =>
-            sWord.includes(uWord) || uWord.includes(sWord)
+        // البحث عن أي كلمة من المستخدم داخل أي مرادف في الشيت
+        const match = sheetVariants.some(variantWords =>
+          userWords.some(uWord =>
+            variantWords.some(sWord =>
+              sWord.includes(uWord) || uWord.includes(sWord)
+            )
           )
         );
 
         if (match) {
-          found = row;
-          return true; // وقف البحث
+          found = row; // حفظ الصف المطابق
+          return true; // إيقاف البحث بعد أول تطابق
         }
       });
 
       res.json({
         answer: found
-          ? found[1]
+          ? found[1] // الرد من العمود الثاني
           : "من فضلك راجع السؤال أو تواصل مع الدعم"
       });
 
@@ -117,5 +126,4 @@ export default async function handler(req, res) {
       res.status(500).json({ answer: "حدث خطأ في السيرفر" });
     }
   });
-
 }
