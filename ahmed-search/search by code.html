@@ -1,62 +1,54 @@
 <!DOCTYPE html>
-<html lang="ar">
-
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الاستعلام عن نتيجة الفحص</title>
+  <title>الاستعلام عن كود القضية</title>
+
   <style>
     body {
       font-family: "Cairo", sans-serif;
       direction: rtl;
-      background: linear-gradient(135deg, #f2f6fc, #dce3f0);
+      background: linear-gradient(to bottom right, #0a1f44, #1e3c72, #2a5298);
       margin: 0;
       padding: 0;
       color: #333;
+      text-align: center;
+      min-height: 100vh;
     }
 
     .container {
       max-width: 800px;
-      margin: 100px auto;
-      background: #fff;
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin: 50px auto;
+      padding: 20px;
     }
 
     h1 {
-      text-align: center;
-      color: #004aad;
+      color: white;
       margin-bottom: 25px;
       font-weight: bold;
     }
 
-    label {
-      font-weight: bold;
-      display: block;
-      margin-bottom: 8px;
-    }
-
     input {
-      width: 100%;
+      width: 90%;
+      max-width: 300px;
       padding: 10px;
+      margin: 5px;
       border-radius: 8px;
       border: 1px solid #ccc;
-      margin-bottom: 20px;
       font-size: 16px;
       text-align: right;
     }
 
     button {
       background: #004aad;
-      color: white;
+      color: #fff;
       border: none;
-      padding: 12px 25px;
+      padding: 10px 20px;
+      margin-top: 10px;
       border-radius: 8px;
-      cursor: pointer;
-      display: block;
-      margin: 0 auto;
       font-size: 16px;
+      cursor: pointer;
       transition: 0.3s;
     }
 
@@ -65,114 +57,96 @@
     }
 
     table {
-      width: 100%;
+      width: 95%;
+      max-width: 800px;
+      margin: 20px auto;
       border-collapse: collapse;
-      margin-top: 25px;
-      text-align: center;
-      min-width: 500px;
-    }
-  .table-wrapper{
-    width: 100%;
-    overflow-x: auto;
-    border-radius: 8px;
-  }
-    th,
-    td {
-      border: 1px solid #ddd;
-      padding: 10px;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     th {
-      background: #004aad;
+      background: #789ec7;
       color: white;
-      font-weight: bold;
+      padding: 10px;
+      width: 35%;
+      text-align: right;
     }
 
-    tr:nth-child(even) {
-      background: #f9f9f9;
+    td {
+      color: black;
+      padding: 10px;
+      text-align: right;
+      word-break: break-word;
+    }
+
+    .prewrap { 
+      white-space: pre-wrap; 
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: red;
     }
   </style>
 </head>
 
 <body>
 
-   <div class="container">
-    <h1>الاستعلام عن كود القضية</h1>
+<div class="container">
+  <h1>الاستعلام عن كود القضية</h1>
 
-    <label for="number">كود القضية:</label>
-    <input type="text" id="number" placeholder="ادخل كود القضية" inputmode="numeric" />
+  <input type="text" id="code" placeholder="أدخل كود القضية">
+  <button onclick="searchByCode()">بحث</button>
 
+  <div id="result"></div>
+  <p id="message"></p>
+</div>
 
-    <button onclick="searchData()">بحث</button>
-
-   <div class="table-wrapper">
- <table id="resultTable" style="display:none;">
-      <thead>
-        <tr>
-          <th>كود القضية</th>
-        </tr>
-      </thead>
-      <tbody id="resultBody"></tbody>
-    </table>
-
-   </div>
-    <p id="message" style="text-align:center; margin-top:20px; font-weight:bold;"></p>
-  </div> 
-
-  <script>
-  async function searchData() {
-    const value = document.getElementById("number").value;
-    const table = document.getElementById("resultTable");
-    const tbody = document.getElementById("resultBody");
+<script>
+  async function searchByCode() {
+    const code = document.getElementById("code").value.trim();
+    const resultDiv = document.getElementById("result");
     const message = document.getElementById("message");
 
-    tbody.innerHTML = "";
-    message.innerHTML = "";
-    table.style.display = "none";
+    resultDiv.innerHTML = "";
+    message.textContent = "";
 
-    if (!value.trim()) {
-      message.innerHTML = "من فضلك ادخل كود القضية";
+    if (!code) {
+      message.textContent = "من فضلك أدخل كود القضية.";
       return;
     }
 
     try {
-      const response = await fetch(`/api/code?search=${value}`);
-      const data = await response.json();
+      const res = await fetch(`/api/code?search=${encodeURIComponent(code)}`);
+      const data = await res.json();
 
-      if (!response.ok) {
-        message.innerHTML = "لا توجد بيانات لهذا الكود";
-        return;
+      if (res.ok) {
+
+        resultDiv.innerHTML = `
+          <table>
+            <tr><th>رقم الفحص</th><td>${data["رقم الفحص"] || "-"}</td></tr>
+            <tr><th>السنة</th><td>${data["السنة"] || "-"}</td></tr>
+            <tr><th>كود القضية</th><td>${data["كود القضية"] || "-"}</td></tr>
+            <tr><th>اسم مقدم الطلب</th><td>${data["اسم مقدم الطلب"] || "-"}</td></tr>
+            <tr><th>حالة الفحص</th><td>${data["حالة الفحص"] || "-"}</td></tr>
+            <tr><th>ما تم في الفحص</th><td class="prewrap">${data["ما تم في الفحص"] || "-"}</td></tr>
+            <tr><th>ملاحظات</th><td class="prewrap">${data["ملاحظات"] || "-"}</td></tr>
+          </table>
+        `;
+
+      } else {
+        message.textContent = data.message || "لم يتم العثور على بيانات.";
       }
 
-      // 🔹 عرض الأعمدة ديناميك
-      const headers = Object.keys(data);
-      const theadRow = document.querySelector("#resultTable thead tr");
-      theadRow.innerHTML = "";
-
-      headers.forEach(header => {
-        const th = document.createElement("th");
-        th.textContent = header;
-        theadRow.appendChild(th);
-      });
-
-      const tr = document.createElement("tr");
-
-      headers.forEach(header => {
-        const td = document.createElement("td");
-        td.textContent = data[header] || "-";
-        tr.appendChild(td);
-      });
-
-      tbody.appendChild(tr);
-      table.style.display = "table";
-
-    } catch (error) {
-      message.innerHTML = "حدث خطأ أثناء الاتصال بالسيرفر";
+    } catch (err) {
+      console.error(err);
+      message.textContent = "حدث خطأ أثناء البحث.";
     }
   }
 </script>
 
 </body>
-
-
 </html>
