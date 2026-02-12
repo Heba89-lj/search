@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   }
 
   const SHEET_ID = process.env.SHEET_ID;
-  const API_KEY = process.env.API_KEY;
+  const API_KEY = process.env.GOOGLE_API_KEY;
 
   const range = "Sheet1!A1:Z1000";
 
@@ -63,3 +63,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ message: "Server Error", error: error.message });
   }
 }
+
