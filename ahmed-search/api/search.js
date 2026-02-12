@@ -52,6 +52,7 @@
            status: match[5],
            visa: match[6],
            notes: match[7],
+          code: match[8],
          },
        });
      } else {
@@ -66,4 +67,5 @@
      });
    }
  }
+
 
