@@ -214,6 +214,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
           <th>
             ماتم فى الفحص</th>
           <th>ملاحظات</th>
+          <th>كود القضية</th>
         </tr>
       </thead>
       <tbody id="resultBody"></tbody>
@@ -256,6 +257,7 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
               <td>${r.status}</td>
              <td>${r.visa}</td>
                <td>${r.notes}</td>
+                <td>${r.code}</td>
            </tr>`;
           body.innerHTML = row;
            table.style.display = "table";
@@ -275,4 +277,5 @@ document.getElementById('searchBtn').addEventListener('click', async () => {
 
 
 </html>
+
 
