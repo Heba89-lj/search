@@ -11,7 +11,7 @@
    const { number, year } = req.query;
 
    if (!number || !year) {
-     return res.status(400).json({ success: false, message: "ادخلي رقم الفحص والسنة" });
+     return res.status(400).json({ success: false, message: "ادخل رقم الفحص والسنة" });
    }
 
    const sheetId = process.env.SHEET_ID;
@@ -67,5 +67,6 @@
      });
    }
  }
+
 
 
