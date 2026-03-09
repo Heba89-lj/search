@@ -53,6 +53,11 @@
            visa: match[6],
            notes: match[7],
           code: match[8],
+            hasNotes: match[9],              // عمود "وجود ملاحظات"
+      publicProsecution: match[10],    // مطالبات نائب عام
+      justiceRequests: match[11],      // مطالبات وزارة العدل
+      taxes: match[12],                // ضرائب
+      courtExecution: match[13],       // تنفيذ أحكام
          },
        });
      } else {
@@ -67,6 +72,7 @@
      });
    }
  }
+
 
 
 
