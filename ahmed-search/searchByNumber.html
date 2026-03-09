@@ -221,14 +221,27 @@
     }
   }
 
-    // إغلاق الـ Modal
-    document.getElementById("closeModal").onclick = () => document.getElementById("notesModal").style.display = "none";
-    document.getElementById("notesModal").onclick = (e) => { if(e.target.id === "notesModal") e.target.style.display = "none"; }
+  // إغلاق الـ Modal
+document.getElementById("closeModal").onclick = () => document.getElementById("notesModal").style.display = "none";
+document.getElementById("notesModal").onclick = (e) => { 
+  if(e.target.id === "notesModal") e.target.style.display = "none"; 
+}
+
+function escapeHtml(text) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 </script>
 
 </body>
 </html>
+
 
 
 
