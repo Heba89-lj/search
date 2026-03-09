@@ -133,7 +133,10 @@
   <button onclick="searchData()">بحث</button>
 
   <div id="result"></div>
-   <!-- زرار الملاحظات (سيظهر فقط إذا هناك ملاحظات) -->
+  <p id="message"></p>
+</div>
+  
+  <!-- زرار الملاحظات (سيظهر فقط إذا هناك ملاحظات) -->
   <button id="notesBtn" style="display:none;">المديونية</button>
 
   <!-- نافذة منبثقة -->
@@ -144,9 +147,6 @@
       <table id="modalTable" style="width:100%; margin-top:10px; border-collapse:collapse;"></table>
     </div>
   </div>
-  <p id="message"></p>
-</div>
-
 
 
   
@@ -209,11 +209,15 @@
 
       } else {
         message.textContent = data.message || "لم يتم العثور على بيانات.";
+                  document.getElementById("notesBtn").style.display = "none";
+
       }
 
     } catch (err) {
       console.error(err);
       message.textContent = "حدث خطأ أثناء البحث.";
+              document.getElementById("notesBtn").style.display = "none";
+
     }
   }
 
@@ -225,6 +229,7 @@
 
 </body>
 </html>
+
 
 
 
