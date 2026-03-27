@@ -509,27 +509,43 @@ document.getElementById("applicantType").addEventListener("change", function () 
 });
 
 // طباعة
-document.getElementById("printBtn").onclick = function () {
-  const content = document.getElementById("requestForm").innerHTML;
+// document.getElementById("printBtn").onclick = function () {
+//   const content = document.getElementById("requestForm").innerHTML;
 
-  const win = window.open('', '', 'width=800,height=700');
+//   const win = window.open('', '', 'width=800,height=700');
 
-  win.document.write(`
-    <html dir="rtl">
-    <head>
-      <title>طباعة الطلب</title>
-      <style>
-        body { font-family: Arial; direction: rtl; padding:20px; }
-      </style>
-    </head>
-    <body>${content}</body>
-    </html>
-  `);
+//   win.document.write(`
+//     <html dir="rtl">
+//     <head>
+//       <title>طباعة الطلب</title>
+//       <style>
+//         body { font-family: Arial; direction: rtl; padding:20px; }
+//       </style>
+//     </head>
+//     <body>${content}</body>
+//     </html>
+//   `);
 
-  win.document.close();
-  win.print();
+//   win.document.close();
+//   win.print();
+// };
+
+ document.getElementById("printBtn").onclick = function () {
+
+  const element = document.getElementById("requestForm");
+
+  const opt = {
+    margin:       0.5,
+    filename:     'طلب_استرداد.pdf',
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  { scale: 2 },
+    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+  };
+
+  html2pdf().set(opt).from(element).save();
 };
 </script>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </body>
 </html>
