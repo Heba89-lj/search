@@ -249,32 +249,31 @@
 
 
 
-
 <!--ده التجربة الاخيره  -->
 
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>نموذج طلب مميكن</title>
-
-  <style>
-    body { font-family: 'Cairo', sans-serif; direction: rtl; background:#f2f6fc; margin:0; padding:20px; }
-    .container { max-width:800px; margin:0 auto; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
-    h3 { text-align:center; margin-bottom:20px; }
-    input, select { width:100%; padding:8px; margin:5px 0 15px 0; border-radius:5px; border:1px solid #ccc; }
-    label { font-weight:bold; }
-    button { background:#004aad; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
-    button:hover { background:#003580; }
-    .no-print { display:flex; justify-content:center; gap:10px; margin-top:20px; }
-    @media print { .no-print { display:none !important; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>نموذج طلب المميكن</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+body { font-family:'Cairo', sans-serif; margin:0; padding:0; background:#f0f2f5; }
+.container { max-width:800px; margin:40px auto; background:#fff; padding:25px; border-radius:12px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+h1 { text-align:center; margin-bottom:25px; color:#003366; }
+label { display:block; margin-top:12px; font-weight:bold; }
+input, select { width:100%; padding:8px; margin-top:5px; border-radius:6px; border:1px solid #ccc; font-size:16px; }
+button { margin-top:20px; background:#003366; color:#fff; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-size:16px; transition:0.3s; }
+button:hover { background:#0055aa; }
+.no-print { display:flex; justify-content:center; gap:15px; }
+@media print { .no-print { display:none !important; } }
+</style>
 </head>
 <body>
 
-<div class="container" id="requestForm">
-  <h3>نموذج طلب مميكن لإسترداد مبلغ مالي</h3>
+<div class="container" id="formContent">
+  <h1>نموذج طلب المميكن</h1>
 
   <label>صفة مقدم الطلب:</label>
   <select id="applicantType">
@@ -284,98 +283,105 @@
   </select>
 
   <div id="selfFields" style="display:none;">
-    <input type="text" id="selfName" placeholder="الاسم" required>
-    <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
+    <label>الاسم:</label>
+    <input type="text" id="selfName" placeholder="الاسم الرباعي">
+    <label>رقم الهاتف:</label>
+    <input type="text" id="selfPhone" placeholder="رقم الهاتف 11 رقم">
   </div>
 
   <div id="agentFields" style="display:none;">
-    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي" required>
-    <input type="text" id="clientName" placeholder="وكيلاً عن" required>
-    <input type="text" id="clientNationalId" placeholder="الرقم القومي" required>
-
-    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد">
-    <select id="registerType">
-      <option value="">نوع القيد</option>
-      <option>ابتدائي</option>
-      <option>استئناف</option>
-      <option>نقض</option>
-      <option>عام</option>
-    </select>
-
-    <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي" required>
-    <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل" required>
-    <input type="text" id="agencyNumber" placeholder="رقم التوكيل" required>
-    <input type="text" id="agencyLetter" placeholder="حرف التوكيل" required>
-    <input type="text" id="agencyYear" placeholder="سنة التوكيل" required>
-    <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي" required>
+    <label>اسم المحامي رباعي:</label>
+    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي">
+    <label>الرقم القومي للمحامي:</label>
+    <input type="text" id="lawyerNationalId" placeholder="14 رقم">
+    <label>جهة إصدار التوكيل:</label>
+    <input type="text" id="agencySource">
+    <label>رقم التوكيل:</label>
+    <input type="text" id="agencyNumber">
+    <label>حرف التوكيل:</label>
+    <input type="text" id="agencyLetter">
+    <label>سنة التوكيل:</label>
+    <input type="text" id="agencyYear">
+    <label>رقم الهاتف للمحامي:</label>
+    <input type="text" id="lawyerPhone" placeholder="11 رقم">
   </div>
 
-  <input type="text" id="caseNumberField" placeholder="رقم القضية" required>
-  <p>تحريراً في: <span id="todayDate"></span></p>
-  <p>توقيع مقدم الطلب: ____________</p>
-</div>
+  <label>رقم القضية:</label>
+  <input type="text" id="caseNumberField">
 
-<div class="no-print">
-  <button id="printBtn">طباعة الطلب PDF</button>
+  <div class="no-print">
+    <button id="printBtn">📄 طباعة PDF</button>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-  // ضبط تاريخ اليوم
-  document.getElementById("todayDate").textContent = new Date().toLocaleDateString('ar-EG');
+// تغيير نوع الطلب
+const applicantType = document.getElementById("applicantType");
+const selfFields = document.getElementById("selfFields");
+const agentFields = document.getElementById("agentFields");
 
-  // إظهار الحقول حسب صفة مقدم الطلب
-  document.getElementById("applicantType").addEventListener("change", function() {
-    const type = this.value;
-    document.getElementById("selfFields").style.display = type === "self" ? "block" : "none";
-    document.getElementById("agentFields").style.display = type === "agent" ? "block" : "none";
-  });
+applicantType.addEventListener("change", () => {
+  selfFields.style.display = applicantType.value === "self" ? "block" : "none";
+  agentFields.style.display = applicantType.value === "agent" ? "block" : "none";
+});
 
-  function validateForm() {
-    const inputs = document.querySelectorAll("#requestForm input, #requestForm select");
-    for (let input of inputs) {
-      if (!input.value.trim()) {
-        alert("الرجاء تعبئة كل الحقول المطلوبة!");
-        return false;
-      }
-    }
-    return true;
+// تحقق من صحة الحقول
+function validateForm() {
+  if(!applicantType.value){ alert("اختر صفة مقدم الطلب"); return false; }
+
+  if(applicantType.value === "self"){
+    const name = document.getElementById("selfName").value.trim();
+    const phone = document.getElementById("selfPhone").value.trim();
+    if(name.split(/\s+/).length < 4){ alert("الاسم الرباعي يجب أن يحتوي 4 كلمات على الأقل"); return false; }
+    if(!/^\d{11}$/.test(phone)){ alert("رقم الهاتف يجب أن يكون 11 رقم"); return false; }
   }
 
-  document.getElementById("printBtn").addEventListener("click", function() {
-    if (!validateForm()) return;
+  if(applicantType.value === "agent"){
+    const lawyerName = document.getElementById("lawyerName").value.trim();
+    const lawyerNationalId = document.getElementById("lawyerNationalId").value.trim();
+    const lawyerPhone = document.getElementById("lawyerPhone").value.trim();
+    if(lawyerName.split(/\s+/).length < 4){ alert("اسم المحامي يجب أن يكون رباعي"); return false; }
+    if(!/^\d{14}$/.test(lawyerNationalId)){ alert("الرقم القومي للمحامي يجب أن يكون 14 رقم"); return false; }
+    if(!/^\d{11}$/.test(lawyerPhone)){ alert("رقم الهاتف للمحامي يجب أن يكون 11 رقم"); return false; }
+  }
 
-    const form = document.getElementById("requestForm");
-    const inputs = form.querySelectorAll("input, select");
+  const caseNumber = document.getElementById("caseNumberField").value.trim();
+  if(!caseNumber){ alert("رقم القضية مطلوب"); return false; }
 
-    // استبدال الـ inputs و select بـ spans مؤقتًا
-    const replaced = [];
-    inputs.forEach(el => {
-      const span = document.createElement("span");
-      span.textContent = el.value;
-      span.style.display = "block";
-      span.style.borderBottom = "1px solid #444";
-      span.style.marginBottom = "10px";
-      el.parentNode.replaceChild(span, el);
-      replaced.push({ original: el, newEl: span });
-    });
+  return true;
+}
 
-    // إعدادات PDF
-    const opt = {
-      margin: 10,
-      filename: 'طلب_استرداد.pdf',
-      image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 3, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    };
+// طباعة PDF
+document.getElementById("printBtn").addEventListener("click", () => {
+  if(!validateForm()) return;
 
-    html2pdf().set(opt).from(form).save().then(() => {
-      // إعادة الـ inputs بعد الطباعة
-      replaced.forEach(item => {
-        item.newEl.parentNode.replaceChild(item.original, item.newEl);
-      });
-    });
+  // استبدال الحقول بالنصوص
+  const inputs = document.querySelectorAll("input, select");
+  const replaced = [];
+  inputs.forEach(input => {
+    const span = document.createElement("span");
+    span.textContent = input.value;
+    span.style.display = "block";
+    span.style.margin = "4px 0";
+    replaced.push({parent: input.parentNode, original: input, newEl: span});
+    input.parentNode.replaceChild(span, input);
   });
+
+  const content = document.getElementById("formContent");
+  const opt = {
+    margin: [10,10,10,10],
+    filename: 'طلب_المميكن.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale:2 },
+    jsPDF: { unit:'px', format:'a4', orientation:'portrait' }
+  };
+
+  html2pdf().set(opt).from(content).save().then(()=>{
+    // إعادة الحقول بعد الطباعة
+    replaced.forEach(item => item.parent.replaceChild(item.original, item.newEl));
+  });
+});
 </script>
 
 </body>
