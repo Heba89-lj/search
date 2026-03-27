@@ -255,130 +255,25 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الاستعلام عن نتيجة الفحص</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>نموذج طلب مميكن</title>
+
   <style>
-    body {
-      font-family: "Cairo", sans-serif;
-      direction: rtl;
-      background: linear-gradient(to bottom right, #0a1f44, #1e3c72, #2a5298);
-      margin: 0;
-      padding: 0;
-      color: #333;
-      text-align: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-    }
-    h1 {
-      color: white;
-      margin-bottom: 25px;
-      font-weight: bold;
-    }
-    input, select {
-      width: 90%;
-      max-width: 300px;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      text-align: right;
-    }
-    button {
-      background: #004aad;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background: #003580;
-    }
-    table {
-      width: 95%;
-      max-width: 800px;
-      margin: 20px auto;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    th {
-      background: #789ec7;
-      color: white;
-      padding: 10px;
-      width: 35%;
-      text-align: right;
-    }
-    td {
-      color: black;
-      padding: 10px;
-      text-align: right;
-      word-break: break-word;
-    }
-    .prewrap { white-space: pre-wrap; }
-    #message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: red;
-    }
-    #notesModal { 
-      display:none; 
-      position:fixed; 
-      top:0; left:0; width:100%; height:100%; 
-      background:rgba(0,0,0,0.5); 
-      justify-content:center; align-items:center; 
-    }
-    #notesModalContent { 
-      background:white; color:black; padding:20px; 
-      border-radius:10px; max-width:400px; width:90%; 
-      position:relative; max-height:80vh;
-      overflow-y:auto; overflow-x:auto;
-    }
-    #closeModal { 
-      position:absolute; top:10px; right:15px; 
-      cursor:pointer; font-size:20px; 
-    }
-    #requestForm input, #requestForm select {
-      width: 95%;
-      margin:5px 0;
-    }
+    body { font-family: 'Cairo', sans-serif; direction: rtl; background:#f2f6fc; margin:0; padding:20px; }
+    .container { max-width:800px; margin:0 auto; background:white; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); }
+    h3 { text-align:center; margin-bottom:20px; }
+    input, select { width:100%; padding:8px; margin:5px 0 15px 0; border-radius:5px; border:1px solid #ccc; }
+    label { font-weight:bold; }
+    button { background:#004aad; color:white; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
+    button:hover { background:#003580; }
+    .no-print { display:flex; justify-content:center; gap:10px; margin-top:20px; }
+    @media print { .no-print { display:none !important; } }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <h1>الاستعلام عن نتيجة الفحص</h1>
-
-  <input type="text" id="number" placeholder="أدخل رقم الفحص">
-  <input type="text" id="year" placeholder="أدخل السنة">
-  <button onclick="searchData()">بحث</button>
-
-  <div id="result"></div>
-  <p id="message"></p>
-</div>
-
-<button id="notesBtn" style="display:none;">المديونية</button>
-
-<div id="notesModal">
-  <div id="notesModalContent">
-    <span id="closeModal">&times;</span>
-    <h3>بيان بالمديونية</h3>
-    <table id="modalTable"></table>
-  </div>
-</div>
-
-<!-- نموذج الطلب -->
-<div id="requestForm" style="display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px;">
+<div class="container" id="requestForm">
   <h3>نموذج طلب مميكن لإسترداد مبلغ مالي</h3>
 
   <label>صفة مقدم الطلب:</label>
@@ -389,22 +284,24 @@
   </select>
 
   <div id="selfFields" style="display:none;">
-    <input type="text" id="selfName" readonly placeholder="الاسم">
+    <input type="text" id="selfName" placeholder="الاسم" required>
     <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
   </div>
 
   <div id="agentFields" style="display:none;">
     <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي" required>
-    <input type="text" id="clientName" readonly placeholder="وكيلاً عن">
-    <input type="text" id="clientNationalId" readonly placeholder="الرقم القومي">
-    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد" required>
-    <select id="registerType" required>
+    <input type="text" id="clientName" placeholder="وكيلاً عن" required>
+    <input type="text" id="clientNationalId" placeholder="الرقم القومي" required>
+
+    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد">
+    <select id="registerType">
       <option value="">نوع القيد</option>
       <option>ابتدائي</option>
       <option>استئناف</option>
       <option>نقض</option>
       <option>عام</option>
     </select>
+
     <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي" required>
     <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل" required>
     <input type="text" id="agencyNumber" placeholder="رقم التوكيل" required>
@@ -413,185 +310,73 @@
     <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي" required>
   </div>
 
-  <input type="text" id="caseNumberField" readonly placeholder="رقم القضية">
-  <p id="noteText"></p>
+  <input type="text" id="caseNumberField" placeholder="رقم القضية" required>
   <p>تحريراً في: <span id="todayDate"></span></p>
   <p>توقيع مقدم الطلب: ____________</p>
 </div>
 
-<!-- زرار الطباعة -->
-<button id="printBtn" style="display:none; margin-top:20px;">
-  طباعة الطلب PDF
-</button>
+<div class="no-print">
+  <button id="printBtn">طباعة الطلب PDF</button>
+</div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-async function searchData() {
-  const number = document.getElementById("number").value.trim();
-  const year = document.getElementById("year").value.trim();
-  const resultDiv = document.getElementById("result");
-  const message = document.getElementById("message");
+  // ضبط تاريخ اليوم
+  document.getElementById("todayDate").textContent = new Date().toLocaleDateString('ar-EG');
 
-  resultDiv.innerHTML = "";
-  message.textContent = "";
+  // إظهار الحقول حسب صفة مقدم الطلب
+  document.getElementById("applicantType").addEventListener("change", function() {
+    const type = this.value;
+    document.getElementById("selfFields").style.display = type === "self" ? "block" : "none";
+    document.getElementById("agentFields").style.display = type === "agent" ? "block" : "none";
+  });
 
-  if (!number || !year) {
-    message.textContent = "من فضلك أدخل رقم الفحص والسنة.";
-    return;
-  }
-
-  try {
-    const res = await fetch(`/api/search?number=${number}&year=${year}`);
-    const data = await res.json();
-
-    if (data.success) {
-      const r = data.result;
-
-      resultDiv.innerHTML = `
-        <table>
-          <tr><th>رقم الفحص</th><td>${r.number || "-"}</td></tr>
-          <tr><th>السنة</th><td>${r.year || "-"}</td></tr>
-          <tr><th>رقم القضية</th><td>${r.caseNumber || "-"}</td></tr>
-          <tr><th>اسم مقدم الطلب</th><td>${r.applicant || "-"}</td></tr>
-          <tr><th>حالة الفحص</th><td>${r.status || "-"}</td></tr>
-          <tr><th>ما تم في الفحص</th><td>${r.visa || "-"}</td></tr>
-          <tr><th>ملاحظات</th><td>${r.notes || "-"}</td></tr>
-          <tr><th>كود القضية</th><td>${r.code || "-"}</td></tr>
-        </table>
-      `;
-
-      document.getElementById("requestForm").style.display = "block";
-      document.getElementById("selfName").value = r.applicant || "";
-      document.getElementById("clientName").value = r.applicant || "";
-      document.getElementById("caseNumberField").value = r.caseNumber || "";
-      document.getElementById("clientNationalId").value = r.nationalId || "";
-
-      const today = new Date();
-      document.getElementById("todayDate").textContent = today.toLocaleDateString('ar-EG');
-
-      const printBtn = document.getElementById("printBtn");
-      if (r.hasNotes && r.hasNotes.toString().includes("مميكن")) {
-        printBtn.style.display = "inline-block";
-      } else {
-        printBtn.style.display = "none";
+  function validateForm() {
+    const inputs = document.querySelectorAll("#requestForm input, #requestForm select");
+    for (let input of inputs) {
+      if (!input.value.trim()) {
+        alert("الرجاء تعبئة كل الحقول المطلوبة!");
+        return false;
       }
-
-    } else {
-      message.textContent = "لم يتم العثور على بيانات.";
-      document.getElementById("printBtn").style.display = "none";
     }
-
-  } catch (err) {
-    message.textContent = "حدث خطأ أثناء البحث.";
-    document.getElementById("printBtn").style.display = "none";
-  }
-}
-
-document.getElementById("applicantType").addEventListener("change", function () {
-  const type = this.value;
-  document.getElementById("selfFields").style.display = type === "self" ? "block" : "none";
-  document.getElementById("agentFields").style.display = type === "agent" ? "block" : "none";
-
-  if (type === "self") {
-    document.getElementById("noteText").textContent = "ملحوظة: يجب إرفاق صورة البطاقة والتأكد من أن الهاتف مسجل باسم صاحب الشأن";
-  } else if (type === "agent") {
-    document.getElementById("noteText").textContent = "ملحوظة: يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي الثابت اسمه بالتوكيل";
-  }
-});
-
-function validateForm() {
-  const type = document.getElementById("applicantType").value;
-  if (!type) { alert("من فضلك اختاري صفة مقدم الطلب"); return false; }
-
-  if (type === "self") {
-    const phone = document.getElementById("selfPhone").value;
-    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف يجب أن يكون 11 رقم"); return false; }
+    return true;
   }
 
-  if (type === "agent") {
-    const lawyerName = document.getElementById("lawyerName").value.trim().split(" ");
-    if (lawyerName.length < 4) { alert("اسم المحامي لازم رباعي"); return false; }
-    const nationalId = document.getElementById("lawyerNationalId").value;
-    if (!/^\d{14}$/.test(nationalId)) { alert("الرقم القومي للمحامي لازم 14 رقم"); return false; }
-    const phone = document.getElementById("lawyerPhone").value;
-    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف للمحامي يجب أن يكون 11 رقم"); return false; }
-    const registerNumber = document.getElementById("registerNumber").value;
-    if (!/^\d{1,7}$/.test(registerNumber)) { alert("رقم القيد يجب أن يكون من 1 إلى 7 أرقام"); return false; }
-    const registerType = document.getElementById("registerType").value;
-    if (!registerType) { alert("من فضلك اختاري نوع القيد"); return false; }
-  }
+  document.getElementById("printBtn").addEventListener("click", function() {
+    if (!validateForm()) return;
 
-  return true;
-}
+    const form = document.getElementById("requestForm");
+    const inputs = form.querySelectorAll("input, select");
 
-// إغلاق الـ Modal
-document.getElementById("closeModal").onclick = () => document.getElementById("notesModal").style.display = "none";
-document.getElementById("notesModal").onclick = (e) => { if(e.target.id === "notesModal") e.target.style.display = "none"; }
+    // استبدال الـ inputs و select بـ spans مؤقتًا
+    const replaced = [];
+    inputs.forEach(el => {
+      const span = document.createElement("span");
+      span.textContent = el.value;
+      span.style.display = "block";
+      span.style.borderBottom = "1px solid #444";
+      span.style.marginBottom = "10px";
+      el.parentNode.replaceChild(span, el);
+      replaced.push({ original: el, newEl: span });
+    });
 
-// طباعة PDF
-document.getElementById("printBtn").onclick = function() {
-  if (!validateForm()) return;
+    // إعدادات PDF
+    const opt = {
+      margin: 10,
+      filename: 'طلب_استرداد.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 3, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
 
-  const pdfDiv = document.createElement("div");
-  pdfDiv.style.fontFamily = "Cairo";
-  pdfDiv.style.direction = "rtl";
-  pdfDiv.style.padding = "20px";
-
-  const h = document.createElement("h3");
-  h.textContent = "نموذج طلب مميكن لإسترداد مبلغ مالي";
-  pdfDiv.appendChild(h);
-
-  const applicantType = document.getElementById("applicantType").value;
-  pdfDiv.innerHTML += `<p>صفة مقدم الطلب: ${applicantType==='self'?'بنفسه':'وكيلاً عن'}</p>`;
-
-  if(applicantType==='self') {
-    const selfName = document.getElementById("selfName").value;
-    const selfPhone = document.getElementById("selfPhone").value;
-    pdfDiv.innerHTML += `<p>الاسم: ${selfName}</p><p>رقم الهاتف: ${selfPhone}</p>`;
-  }
-
-  if(applicantType==='agent') {
-    const lawyerName = document.getElementById("lawyerName").value;
-    const clientName = document.getElementById("clientName").value;
-    const clientNationalId = document.getElementById("clientNationalId").value;
-    const registerNumber = document.getElementById("registerNumber").value;
-    const registerType = document.getElementById("registerType").value;
-    const lawyerNationalId = document.getElementById("lawyerNationalId").value;
-    const agencySource = document.getElementById("agencySource").value;
-    const agencyNumber = document.getElementById("agencyNumber").value;
-    const agencyLetter = document.getElementById("agencyLetter").value;
-    const agencyYear = document.getElementById("agencyYear").value;
-    const lawyerPhone = document.getElementById("lawyerPhone").value;
-
-    pdfDiv.innerHTML += `
-      <p>اسم المحامي: ${lawyerName}</p>
-      <p>وكيلاً عن: ${clientName}</p>
-      <p>الرقم القومي لصاحب الشأن: ${clientNationalId}</p>
-      <p>رقم القيد: ${registerNumber}</p>
-      <p>نوع القيد: ${registerType}</p>
-      <p>الرقم القومي للمحامي: ${lawyerNationalId}</p>
-      <p>جهة إصدار التوكيل: ${agencySource}</p>
-      <p>رقم التوكيل: ${agencyNumber}</p>
-      <p>حرف التوكيل: ${agencyLetter}</p>
-      <p>سنة التوكيل: ${agencyYear}</p>
-      <p>رقم الهاتف للمحامي: ${lawyerPhone}</p>
-    `;
-  }
-
-  const caseNumber = document.getElementById("caseNumberField").value;
-  const today = document.getElementById("todayDate").textContent;
-  pdfDiv.innerHTML += `<p>رقم القضية: ${caseNumber}</p><p>تحريراً في: ${today}</p><p>توقيع مقدم الطلب: ____________</p>`;
-
-  const opt = {
-    margin: 0.5,
-    filename: 'طلب_استرداد.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
-
-  html2pdf().set(opt).from(pdfDiv).save();
-};
+    html2pdf().set(opt).from(form).save().then(() => {
+      // إعادة الـ inputs بعد الطباعة
+      replaced.forEach(item => {
+        item.newEl.parentNode.replaceChild(item.original, item.newEl);
+      });
+    });
+  });
 </script>
+
 </body>
 </html>
