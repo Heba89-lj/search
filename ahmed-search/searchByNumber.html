@@ -394,7 +394,7 @@
 
   <div id="selfFields" style="display:none;">
     <input type="text" id="selfName" readonly placeholder="الاسم">
-    <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)">
+<input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
   </div>
 
   <div id="agentFields" style="display:none;">
@@ -411,12 +411,12 @@
       <option>عام</option>
     </select>
 
-    <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي">
-    <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل">
-    <input type="text" id="agencyNumber" placeholder="رقم التوكيل">
-    <input type="text" id="agencyLetter" placeholder="حرف التوكيل">
-    <input type="text" id="agencyYear" placeholder="سنة التوكيل">
-    <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي">
+    <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي" required>
+    <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل" required>
+    <input type="text" id="agencyNumber" placeholder="رقم التوكيل" required>
+    <input type="text" id="agencyLetter" placeholder="حرف التوكيل" required>
+    <input type="text" id="agencyYear" placeholder="سنة التوكيل" required>
+    <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي" required>
   </div>
 
   <input type="text" id="caseNumberField" readonly placeholder="رقم القضية">
@@ -507,7 +507,44 @@ document.getElementById("applicantType").addEventListener("change", function () 
     document.getElementById("noteText").textContent = "يجب إرفاق التوكيل والكارنبه والتاكد من ان الهاتف مسجل باسم المحامى الثابت اسمه بالتوكيل.";
   }
 });
+function validateForm() {
+  const type = document.getElementById("applicantType").value;
 
+  if (!type) {
+    alert("من فضلك اختاري صفة مقدم الطلب");
+    return false;
+  }
+
+  if (type === "self") {
+    const phone = document.getElementById("selfPhone").value;
+    if (!/^\d{11}$/.test(phone)) {
+      alert("رقم الهاتف يجب أن يكون 11 رقم");
+      return false;
+    }
+  }
+
+  if (type === "agent") {
+    const lawyerName = document.getElementById("lawyerName").value.trim().split(" ");
+    if (lawyerName.length < 4) {
+      alert("اسم المحامي لازم رباعي");
+      return false;
+    }
+
+    const nationalId = document.getElementById("lawyerNationalId").value;
+    if (!/^\d{14}$/.test(nationalId)) {
+      alert("الرقم القومي للمحامي لازم 14 رقم");
+      return false;
+    }
+
+    const phone = document.getElementById("lawyerPhone").value;
+    if (!/^\d{11}$/.test(phone)) {
+      alert("رقم الهاتف لازم 11 رقم");
+      return false;
+    }
+  }
+
+  return true;
+}
 // طباعة
 // document.getElementById("printBtn").onclick = function () {
 //   const content = document.getElementById("requestForm").innerHTML;
@@ -530,21 +567,22 @@ document.getElementById("applicantType").addEventListener("change", function () 
 //   win.print();
 // };
 
- document.getElementById("printBtn").onclick = function () {
+document.getElementById("printBtn").onclick = function () {
+
+  if (!validateForm()) return;
 
   const element = document.getElementById("requestForm");
 
   const opt = {
-    margin:       0.5,
-    filename:     'طلب_استرداد.pdf',
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  { scale: 2 },
-    jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    margin: 0.5,
+    filename: 'طلب_استرداد.pdf',
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2 },
+    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
   html2pdf().set(opt).from(element).save();
 };
-</script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 </body>
