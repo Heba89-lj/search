@@ -567,22 +567,22 @@ function validateForm() {
 // };
 
  
-document.getElementById("printBtn").onclick = function () {
+// document.getElementById("printBtn").onclick = function () {
 
-  if (!validateForm()) return;
+//   if (!validateForm()) return;
 
-  const element = document.getElementById("requestForm");
+//   const element = document.getElementById("requestForm");
 
-  const opt = {
-    margin: 0.5,
-    filename: 'طلب_استرداد.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
+//   const opt = {
+//     margin: 0.5,
+//     filename: 'طلب_استرداد.pdf',
+//     image: { type: 'jpeg', quality: 0.98 },
+//     html2canvas: { scale: 2 },
+//     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+//   };
 
-  html2pdf().set(opt).from(element).save();
-};
+//   html2pdf().set(opt).from(element).save();
+// };
 
 </body>
 </html>
