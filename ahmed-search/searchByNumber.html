@@ -430,6 +430,7 @@
 <button id="printBtn" style="display:none; margin-top:20px;">
   طباعة الطلب PDF
 </button>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 async function searchData() {
@@ -567,23 +568,22 @@ function validateForm() {
 //   win.print();
 // };
 
-document.getElementById("printBtn").onclick = function () {
+// document.getElementById("printBtn").onclick = function () {
 
-  if (!validateForm()) return;
+//   if (!validateForm()) return;
 
-  const element = document.getElementById("requestForm");
+//   const element = document.getElementById("requestForm");
 
-  const opt = {
-    margin: 0.5,
-    filename: 'طلب_استرداد.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
-  };
+//   const opt = {
+//     margin: 0.5,
+//     filename: 'طلب_استرداد.pdf',
+//     image: { type: 'jpeg', quality: 0.98 },
+//     html2canvas: { scale: 2 },
+//     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+//   };
 
-  html2pdf().set(opt).from(element).save();
-};
- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+//   html2pdf().set(opt).from(element).save();
+// };
 
 </body>
 </html>
