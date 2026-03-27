@@ -247,45 +247,28 @@
 
 <!-- ######################################################### -->
 
-<!-- ____________________________________________  -->
+
+<!--++++++++++++++++++++++++++++++++++  -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>الاستعلام عن نتيجة الفحص</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <style>
-    body {
-      font-family: "Cairo", sans-serif;
-      direction: rtl;
-      background: linear-gradient(to bottom right, #0a1f44, #1e3c72, #2a5298);
-      margin: 0;
-      padding: 0;
-      color: #333;
-      text-align: center;
-      min-height: 100vh;
-    }
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-    }
-    h1 { color: white; margin-bottom: 25px; font-weight: bold; }
-    input, select { width: 90%; max-width: 300px; padding: 10px; margin: 5px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; text-align: right; }
-    button {
-      background: #004aad; color: #fff; border: none; padding: 10px 20px; margin-top: 10px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s;
-    }
-    button:hover { background: #003580; }
-    table { width: 95%; max-width: 800px; margin: 20px auto; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
-    th { background: #789ec7; color: white; padding: 10px; width: 35%; text-align: right; }
-    td { color: black; padding: 10px; text-align: right; word-break: break-word; }
+    body { font-family: "Cairo", sans-serif; direction: rtl; background: #1e3c72; margin:0; padding:0; color:#333; text-align:center; min-height:100vh;}
+    .container { max-width:800px; margin:50px auto; padding:20px;}
+    h1 { color:white; margin-bottom:25px; font-weight:bold;}
+    input, select { width:90%; max-width:300px; padding:10px; margin:5px; border-radius:8px; border:1px solid #ccc; font-size:16px; text-align:right;}
+    button { background:#004aad; color:#fff; border:none; padding:10px 20px; margin-top:10px; border-radius:8px; font-size:16px; cursor:pointer; transition:0.3s;}
+    button:hover { background:#003580;}
+    table { width:95%; max-width:800px; margin:20px auto; border-collapse:collapse; background:white; border-radius:10px; overflow:hidden;}
+    th { background:#789ec7; color:white; padding:10px; width:35%; text-align:right;}
+    td { color:black; padding:10px; text-align:right; word-break:break-word;}
     .prewrap { white-space: pre-wrap; }
-    #message { margin-top: 20px; font-weight: bold; color: red; }
-    #notesModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-    #notesModalContent { background:white; color:black; padding:20px; border-radius:10px; max-width:400px; width:90%; position:relative; max-height:80vh; overflow-y:auto; overflow-x:auto; }
-    #closeModal { position:absolute; top:10px; right:15px; cursor:pointer; font-size:20px; }
-    #requestForm { display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px; text-align:right; }
-    #requestForm label { display:block; margin-top:10px; font-weight:bold; }
+    #message { margin-top:20px; font-weight:bold; color:red; }
+    #requestForm { display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px; text-align:right;}
   </style>
 </head>
 <body>
@@ -301,16 +284,6 @@
   <p id="message"></p>
 </div>
 
-<button id="notesBtn" style="display:none;">المديونية</button>
-
-<div id="notesModal">
-  <div id="notesModalContent">
-    <span id="closeModal">&times;</span>
-    <h3>بيان بالمديونية</h3>
-    <table id="modalTable"></table>
-  </div>
-</div>
-
 <!-- نموذج الطلب -->
 <div id="requestForm">
   <h3>نموذج طلب مميكن لإسترداد مبلغ مالي</h3>
@@ -324,16 +297,16 @@
 
   <div id="selfFields" style="display:none;">
     <input type="text" id="selfName" readonly placeholder="الاسم">
-    <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
+    <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)">
   </div>
 
   <div id="agentFields" style="display:none;">
-    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي" required>
+    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي">
     <input type="text" id="clientName" readonly placeholder="وكيلاً عن">
     <input type="text" id="clientNationalId" readonly placeholder="الرقم القومي">
 
-    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد" required>
-    <select id="registerType" required>
+    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد">
+    <select id="registerType">
       <option value="">نوع القيد</option>
       <option>ابتدائي</option>
       <option>استئناف</option>
@@ -341,12 +314,12 @@
       <option>عام</option>
     </select>
 
-    <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي" required>
-    <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل" required>
-    <input type="text" id="agencyNumber" placeholder="رقم التوكيل" required>
-    <input type="text" id="agencyLetter" placeholder="حرف التوكيل" required>
-    <input type="text" id="agencyYear" placeholder="سنة التوكيل" required>
-    <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي" required>
+    <input type="text" id="lawyerNationalId" maxlength="14" placeholder="الرقم القومي للمحامي">
+    <input type="text" id="agencySource" placeholder="جهة إصدار التوكيل">
+    <input type="text" id="agencyNumber" placeholder="رقم التوكيل">
+    <input type="text" id="agencyLetter" placeholder="حرف التوكيل">
+    <input type="text" id="agencyYear" placeholder="سنة التوكيل">
+    <input type="text" id="lawyerPhone" maxlength="11" placeholder="رقم الهاتف للمحامي">
   </div>
 
   <input type="text" id="caseNumberField" readonly placeholder="رقم القضية">
@@ -357,23 +330,14 @@
 
 <button id="printBtn" style="display:none; margin-top:20px;">طباعة الطلب PDF</button>
 
-<!-- مكتبة html2pdf -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
 <script>
 async function searchData() {
   const number = document.getElementById("number").value.trim();
   const year = document.getElementById("year").value.trim();
-  const resultDiv = document.getElementById("result");
   const message = document.getElementById("message");
-
-  resultDiv.innerHTML = "";
   message.textContent = "";
 
-  if (!number || !year) {
-    message.textContent = "من فضلك أدخل رقم الفحص والسنة.";
-    return;
-  }
+  if (!number || !year) { message.textContent = "من فضلك أدخل رقم الفحص والسنة."; return; }
 
   try {
     const res = await fetch(`/api/search?number=${number}&year=${year}`);
@@ -382,34 +346,18 @@ async function searchData() {
     if (data.success) {
       const r = data.result;
 
-      resultDiv.innerHTML = `
-        <table>
-          <tr><th>رقم الفحص</th><td>${r.number || "-"}</td></tr>
-          <tr><th>السنة</th><td>${r.year || "-"}</td></tr>
-          <tr><th>رقم القضية</th><td>${r.caseNumber || "-"}</td></tr>
-          <tr><th>اسم مقدم الطلب</th><td>${r.applicant || "-"}</td></tr>
-          <tr><th>حالة الفحص</th><td>${r.status || "-"}</td></tr>
-          <tr><th>ما تم في الفحص</th><td>${r.visa || "-"}</td></tr>
-          <tr><th>ملاحظات</th><td>${r.notes || "-"}</td></tr>
-          <tr><th>كود القضية</th><td>${r.code || "-"}</td></tr>
-        </table>
-      `;
-
       document.getElementById("requestForm").style.display = "block";
       document.getElementById("selfName").value = r.applicant || "";
       document.getElementById("clientName").value = r.applicant || "";
       document.getElementById("caseNumberField").value = r.caseNumber || "";
       document.getElementById("clientNationalId").value = r.nationalId || "";
 
-      const today = new Date();
-      document.getElementById("todayDate").textContent = today.toLocaleDateString('ar-EG');
+      document.getElementById("todayDate").textContent = new Date().toLocaleDateString('ar-EG');
 
+      // إذا كلمة "مميكن" موجودة في العمود
       const printBtn = document.getElementById("printBtn");
-      if (r.hasNotes && r.hasNotes.toString().includes("مميكن")) {
-        printBtn.style.display = "inline-block";
-      } else {
-        printBtn.style.display = "none";
-      }
+      if (r.hasNotes && r.hasNotes.includes("مميكن")) printBtn.style.display = "inline-block";
+      else printBtn.style.display = "none";
 
     } else {
       message.textContent = "لم يتم العثور على بيانات.";
@@ -424,67 +372,57 @@ async function searchData() {
 
 document.getElementById("applicantType").addEventListener("change", function () {
   const type = this.value;
-  document.getElementById("selfFields").style.display = type === "self" ? "block" : "none";
-  document.getElementById("agentFields").style.display = type === "agent" ? "block" : "none";
+  document.getElementById("selfFields").style.display = type==='self'?'block':'none';
+  document.getElementById("agentFields").style.display = type==='agent'?'block':'none';
 
-  if (type === "self") {
-    document.getElementById("noteText").textContent = "يجب إرفاق صورة البطاقة.";
-  } else if (type === "agent") {
-    document.getElementById("noteText").textContent = "يجب إرفاق التوكيل والكارنبه والتأكد من أن الهاتف مسجل باسم المحامي.";
-  }
+  if (type==='self') document.getElementById("noteText").textContent = "يجب إرفاق صورة البطاقة.";
+  if (type==='agent') document.getElementById("noteText").textContent = "يجب إرفاق التوكيل والكارنيه والتأكد من الهاتف.";
 });
 
 function validateForm() {
   const type = document.getElementById("applicantType").value;
   if (!type) { alert("من فضلك اختاري صفة مقدم الطلب"); return false; }
 
-  if (type === "self") {
+  if (type==='self') {
     const phone = document.getElementById("selfPhone").value;
     if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف يجب أن يكون 11 رقم"); return false; }
   }
 
-  if (type === "agent") {
+  if (type==='agent') {
     const lawyerName = document.getElementById("lawyerName").value.trim().split(" ");
-    if (lawyerName.length < 4) { alert("اسم المحامي لازم رباعي"); return false; }
-
+    if (lawyerName.length<4) { alert("اسم المحامي لازم رباعي"); return false; }
     const nationalId = document.getElementById("lawyerNationalId").value;
     if (!/^\d{14}$/.test(nationalId)) { alert("الرقم القومي للمحامي لازم 14 رقم"); return false; }
-
     const phone = document.getElementById("lawyerPhone").value;
-    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف لازم 11 رقم"); return false; }
+    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف للمحامي لازم 11 رقم"); return false; }
   }
   return true;
 }
 
-// طباعة PDF
-document.getElementById("printBtn").onclick = function () {
+document.getElementById("printBtn").onclick = function() {
   if (!validateForm()) return;
 
-  const form = document.getElementById("requestForm");
-  const printContent = form.cloneNode(true);
+  // Clone النموذج
+  const original = document.getElementById("requestForm");
+  const clone = original.cloneNode(true);
 
-  const inputs = printContent.querySelectorAll("input, select");
-  inputs.forEach(el => {
-    let value = el.value;
-    if (el.tagName === "SELECT") {
-      value = el.options[el.selectedIndex].text;
-    }
-    const span = document.createElement("span");
-    span.textContent = value || "-";
-    span.style.display = "block";
-    span.style.padding = "5px";
+  // تحويل كل input/select إلى span مع القيمة
+  clone.querySelectorAll('input, select').forEach(el => {
+    const span = document.createElement('span');
+    span.textContent = el.value || '-';
+    span.style.display = 'block';
+    span.style.marginBottom = '5px';
     el.parentNode.replaceChild(span, el);
   });
 
   const opt = {
-    margin: 0.5,
-    filename: 'طلب_استرداد.pdf',
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2 },
-    jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    margin:0.5,
+    filename:'طلب_استرداد.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2},
+    jsPDF:{unit:'in',format:'a4',orientation:'portrait'}
   };
-
-  html2pdf().set(opt).from(printContent).save();
+  html2pdf().set(opt).from(clone).save();
 };
 </script>
 
