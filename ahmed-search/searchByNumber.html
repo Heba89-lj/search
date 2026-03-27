@@ -567,30 +567,27 @@ function validateForm() {
 // };
 
 document.getElementById("printBtn").onclick = function () {
-
   if (!validateForm()) return;
 
-  const element = document.getElementById("requestForm");
+  const form = document.getElementById("requestForm");
 
-  // 🔥 تحويل القيم لنصوص
-  const inputs = element.querySelectorAll("input, select");
+  // ✅ إنشاء نسخة للطباعة
+  const printContent = form.cloneNode(true);
 
+  // 🔹 تحويل كل الـ input و select إلى نصوص
+  const inputs = printContent.querySelectorAll("input, select");
   inputs.forEach(el => {
     let value = el.value;
-
-    // لو select
     if (el.tagName === "SELECT") {
       value = el.options[el.selectedIndex].text;
     }
 
     const span = document.createElement("span");
     span.textContent = value || "-";
-
     span.style.display = "block";
-    span.style.padding = "8px";
+    span.style.padding = "5px";
 
-    el.style.display = "none";
-    el.parentNode.insertBefore(span, el);
+    el.parentNode.replaceChild(span, el); // استبدال الـ input/span
   });
 
   const opt = {
@@ -601,17 +598,8 @@ document.getElementById("printBtn").onclick = function () {
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(element).save().then(() => {
-    
-    // 🔄 رجوع الفورم زي ما كان
-    inputs.forEach(el => {
-      el.style.display = "block";
-      if (el.previousSibling) {
-        el.parentNode.removeChild(el.previousSibling);
-      }
-    });
-
-  });
+  // 🔹 إنشاء PDF من النسخة وليس الفورم الأصلي
+  html2pdf().set(opt).from(printContent).save();
 };
 </script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
