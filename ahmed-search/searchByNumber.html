@@ -281,9 +281,8 @@ function escapeHtml(text) {
           notesBtn.style.display = "inline-block";
 
           notesBtn.onclick = () => {
-            // هنا هنعرض النموذج المميكن مباشرة
-            // ممكن تحطي الكود بتاع النموذج المميكن هنا أو تفتحي modal
-            openMimkenForm(r); // دالة هنعملها تحت
+         // تحويل المستخدم مباشرة لصفحة النموذج
+    window.location.href = "momiken.html";
           }
 
         } else if(r.hasNotes && r.hasNotes.toString().toLowerCase().includes("ملاحظات")){
