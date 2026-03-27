@@ -381,7 +381,7 @@
   </div>
 </div>
 
-<!-- ✅ النموذج الجديد -->
+<!-- نموذج الطلب -->
 <div id="requestForm" style="display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px;">
   <h3>نموذج طلب مميكن لإسترداد مبلغ مالي</h3>
 
@@ -425,6 +425,11 @@
   <p>تحريراً في: <span id="todayDate"></span></p>
   <p>توقيع مقدم الطلب: ____________</p>
 </div>
+
+<!-- زرار الطباعة -->
+<button id="printBtn" style="display:none; margin-top:20px;">
+  طباعة الطلب PDF
+</button>
 
 <script>
 async function searchData() {
@@ -470,15 +475,26 @@ async function searchData() {
       const today = new Date();
       document.getElementById("todayDate").textContent = today.toLocaleDateString('ar-EG');
 
+      // ✅ شرط المميكن
+      const printBtn = document.getElementById("printBtn");
+      if (r.hasNotes && r.hasNotes.toString().includes("مميكن")) {
+        printBtn.style.display = "inline-block";
+      } else {
+        printBtn.style.display = "none";
+      }
+
     } else {
       message.textContent = "لم يتم العثور على بيانات.";
+      document.getElementById("printBtn").style.display = "none";
     }
 
   } catch (err) {
     message.textContent = "حدث خطأ أثناء البحث.";
+    document.getElementById("printBtn").style.display = "none";
   }
 }
 
+// تغيير نوع الطلب
 document.getElementById("applicantType").addEventListener("change", function () {
   const type = this.value;
 
@@ -491,9 +507,29 @@ document.getElementById("applicantType").addEventListener("change", function () 
     document.getElementById("noteText").textContent = "يجب إرفاق التوكيل.";
   }
 });
+
+// طباعة
+document.getElementById("printBtn").onclick = function () {
+  const content = document.getElementById("requestForm").innerHTML;
+
+  const win = window.open('', '', 'width=800,height=700');
+
+  win.document.write(`
+    <html dir="rtl">
+    <head>
+      <title>طباعة الطلب</title>
+      <style>
+        body { font-family: Arial; direction: rtl; padding:20px; }
+      </style>
+    </head>
+    <body>${content}</body>
+    </html>
+  `);
+
+  win.document.close();
+  win.print();
+};
 </script>
 
 </body>
 </html>
-
-
