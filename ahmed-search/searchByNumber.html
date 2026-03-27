@@ -566,12 +566,32 @@ function validateForm() {
 //   win.print();
 // };
 
- 
 document.getElementById("printBtn").onclick = function () {
 
   if (!validateForm()) return;
 
   const element = document.getElementById("requestForm");
+
+  // 🔥 تحويل القيم لنصوص
+  const inputs = element.querySelectorAll("input, select");
+
+  inputs.forEach(el => {
+    let value = el.value;
+
+    // لو select
+    if (el.tagName === "SELECT") {
+      value = el.options[el.selectedIndex].text;
+    }
+
+    const span = document.createElement("span");
+    span.textContent = value || "-";
+
+    span.style.display = "block";
+    span.style.padding = "8px";
+
+    el.style.display = "none";
+    el.parentNode.insertBefore(span, el);
+  });
 
   const opt = {
     margin: 0.5,
@@ -581,7 +601,17 @@ document.getElementById("printBtn").onclick = function () {
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  html2pdf().set(opt).from(element).save();
+  html2pdf().set(opt).from(element).save().then(() => {
+    
+    // 🔄 رجوع الفورم زي ما كان
+    inputs.forEach(el => {
+      el.style.display = "block";
+      if (el.previousSibling) {
+        el.parentNode.removeChild(el.previousSibling);
+      }
+    });
+
+  });
 };
 </script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
