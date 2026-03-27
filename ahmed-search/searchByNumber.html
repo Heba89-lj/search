@@ -247,11 +247,12 @@
 
 <!-- ######################################################### -->
 
+<!-- ____________________________________________  -->
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>الاستعلام عن نتيجة الفحص</title>
   <style>
     body {
@@ -264,98 +265,27 @@
       text-align: center;
       min-height: 100vh;
     }
-
     .container {
       max-width: 800px;
       margin: 50px auto;
       padding: 20px;
     }
-
-    h1 {
-      color: white;
-      margin-bottom: 25px;
-      font-weight: bold;
-    }
-
-    input, select {
-      width: 90%;
-      max-width: 300px;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      text-align: right;
-    }
-
+    h1 { color: white; margin-bottom: 25px; font-weight: bold; }
+    input, select { width: 90%; max-width: 300px; padding: 10px; margin: 5px; border-radius: 8px; border: 1px solid #ccc; font-size: 16px; text-align: right; }
     button {
-      background: #004aad;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
+      background: #004aad; color: #fff; border: none; padding: 10px 20px; margin-top: 10px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.3s;
     }
-
-    button:hover {
-      background: #003580;
-    }
-
-    table {
-      width: 95%;
-      max-width: 800px;
-      margin: 20px auto;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    th {
-      background: #789ec7;
-      color: white;
-      padding: 10px;
-      width: 35%;
-      text-align: right;
-    }
-
-    td {
-      color: black;
-      padding: 10px;
-      text-align: right;
-      word-break: break-word;
-    }
-
+    button:hover { background: #003580; }
+    table { width: 95%; max-width: 800px; margin: 20px auto; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; }
+    th { background: #789ec7; color: white; padding: 10px; width: 35%; text-align: right; }
+    td { color: black; padding: 10px; text-align: right; word-break: break-word; }
     .prewrap { white-space: pre-wrap; }
-
-    #message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: red;
-    }
-
-    #notesModal { 
-      display:none; 
-      position:fixed; 
-      top:0; left:0; width:100%; height:100%; 
-      background:rgba(0,0,0,0.5); 
-      justify-content:center; align-items:center; 
-    }
-
-    #notesModalContent { 
-      background:white; color:black; padding:20px; 
-      border-radius:10px; max-width:400px; width:90%; 
-      position:relative; max-height:80vh;
-      overflow-y:auto; overflow-x:auto;
-    }
-
-    #closeModal { 
-      position:absolute; top:10px; right:15px; 
-      cursor:pointer; font-size:20px; 
-    }
+    #message { margin-top: 20px; font-weight: bold; color: red; }
+    #notesModal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
+    #notesModalContent { background:white; color:black; padding:20px; border-radius:10px; max-width:400px; width:90%; position:relative; max-height:80vh; overflow-y:auto; overflow-x:auto; }
+    #closeModal { position:absolute; top:10px; right:15px; cursor:pointer; font-size:20px; }
+    #requestForm { display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px; text-align:right; }
+    #requestForm label { display:block; margin-top:10px; font-weight:bold; }
   </style>
 </head>
 <body>
@@ -382,7 +312,7 @@
 </div>
 
 <!-- نموذج الطلب -->
-<div id="requestForm" style="display:none; margin:30px auto; max-width:800px; background:white; padding:20px; border-radius:10px;">
+<div id="requestForm">
   <h3>نموذج طلب مميكن لإسترداد مبلغ مالي</h3>
 
   <label>صفة مقدم الطلب:</label>
@@ -394,16 +324,16 @@
 
   <div id="selfFields" style="display:none;">
     <input type="text" id="selfName" readonly placeholder="الاسم">
-<input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
+    <input type="text" id="selfPhone" placeholder="رقم الهاتف (11 رقم)" required>
   </div>
 
   <div id="agentFields" style="display:none;">
-    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي">
+    <input type="text" id="lawyerName" placeholder="اسم المحامي رباعي" required>
     <input type="text" id="clientName" readonly placeholder="وكيلاً عن">
     <input type="text" id="clientNationalId" readonly placeholder="الرقم القومي">
 
-    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد">
-    <select id="registerType">
+    <input type="text" id="registerNumber" maxlength="7" placeholder="رقم القيد" required>
+    <select id="registerType" required>
       <option value="">نوع القيد</option>
       <option>ابتدائي</option>
       <option>استئناف</option>
@@ -420,16 +350,15 @@
   </div>
 
   <input type="text" id="caseNumberField" readonly placeholder="رقم القضية">
-
   <p id="noteText"></p>
   <p>تحريراً في: <span id="todayDate"></span></p>
   <p>توقيع مقدم الطلب: ____________</p>
 </div>
 
-<!-- زرار الطباعة -->
-<button id="printBtn" style="display:none; margin-top:20px;">
-  طباعة الطلب PDF
-</button>
+<button id="printBtn" style="display:none; margin-top:20px;">طباعة الطلب PDF</button>
+
+<!-- مكتبة html2pdf -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 <script>
 async function searchData() {
@@ -475,7 +404,6 @@ async function searchData() {
       const today = new Date();
       document.getElementById("todayDate").textContent = today.toLocaleDateString('ar-EG');
 
-      // ✅ شرط المميكن
       const printBtn = document.getElementById("printBtn");
       if (r.hasNotes && r.hasNotes.toString().includes("مميكن")) {
         printBtn.style.display = "inline-block";
@@ -494,100 +422,58 @@ async function searchData() {
   }
 }
 
-// تغيير نوع الطلب
 document.getElementById("applicantType").addEventListener("change", function () {
   const type = this.value;
-
   document.getElementById("selfFields").style.display = type === "self" ? "block" : "none";
   document.getElementById("agentFields").style.display = type === "agent" ? "block" : "none";
 
   if (type === "self") {
     document.getElementById("noteText").textContent = "يجب إرفاق صورة البطاقة.";
   } else if (type === "agent") {
-    document.getElementById("noteText").textContent = "يجب إرفاق التوكيل والكارنبه والتاكد من ان الهاتف مسجل باسم المحامى الثابت اسمه بالتوكيل.";
+    document.getElementById("noteText").textContent = "يجب إرفاق التوكيل والكارنبه والتأكد من أن الهاتف مسجل باسم المحامي.";
   }
 });
+
 function validateForm() {
   const type = document.getElementById("applicantType").value;
-
-  if (!type) {
-    alert("من فضلك اختاري صفة مقدم الطلب");
-    return false;
-  }
+  if (!type) { alert("من فضلك اختاري صفة مقدم الطلب"); return false; }
 
   if (type === "self") {
     const phone = document.getElementById("selfPhone").value;
-    if (!/^\d{11}$/.test(phone)) {
-      alert("رقم الهاتف يجب أن يكون 11 رقم");
-      return false;
-    }
+    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف يجب أن يكون 11 رقم"); return false; }
   }
 
   if (type === "agent") {
     const lawyerName = document.getElementById("lawyerName").value.trim().split(" ");
-    if (lawyerName.length < 4) {
-      alert("اسم المحامي لازم رباعي");
-      return false;
-    }
+    if (lawyerName.length < 4) { alert("اسم المحامي لازم رباعي"); return false; }
 
     const nationalId = document.getElementById("lawyerNationalId").value;
-    if (!/^\d{14}$/.test(nationalId)) {
-      alert("الرقم القومي للمحامي لازم 14 رقم");
-      return false;
-    }
+    if (!/^\d{14}$/.test(nationalId)) { alert("الرقم القومي للمحامي لازم 14 رقم"); return false; }
 
     const phone = document.getElementById("lawyerPhone").value;
-    if (!/^\d{11}$/.test(phone)) {
-      alert("رقم الهاتف لازم 11 رقم");
-      return false;
-    }
+    if (!/^\d{11}$/.test(phone)) { alert("رقم الهاتف لازم 11 رقم"); return false; }
   }
-
   return true;
 }
-// طباعة
-// document.getElementById("printBtn").onclick = function () {
-//   const content = document.getElementById("requestForm").innerHTML;
 
-//   const win = window.open('', '', 'width=800,height=700');
-
-//   win.document.write(`
-//     <html dir="rtl">
-//     <head>
-//       <title>طباعة الطلب</title>
-//       <style>
-//         body { font-family: Arial; direction: rtl; padding:20px; }
-//       </style>
-//     </head>
-//     <body>${content}</body>
-//     </html>
-//   `);
-//   win.document.close();
-//   win.print();
-// };
-
+// طباعة PDF
 document.getElementById("printBtn").onclick = function () {
   if (!validateForm()) return;
 
   const form = document.getElementById("requestForm");
-
-  // ✅ إنشاء نسخة للطباعة
   const printContent = form.cloneNode(true);
 
-  // 🔹 تحويل كل الـ input و select إلى نصوص
   const inputs = printContent.querySelectorAll("input, select");
   inputs.forEach(el => {
     let value = el.value;
     if (el.tagName === "SELECT") {
       value = el.options[el.selectedIndex].text;
     }
-
     const span = document.createElement("span");
     span.textContent = value || "-";
     span.style.display = "block";
     span.style.padding = "5px";
-
-    el.parentNode.replaceChild(span, el); // استبدال الـ input/span
+    el.parentNode.replaceChild(span, el);
   });
 
   const opt = {
@@ -598,10 +484,9 @@ document.getElementById("printBtn").onclick = function () {
     jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
   };
 
-  // 🔹 إنشاء PDF من النسخة وليس الفورم الأصلي
   html2pdf().set(opt).from(printContent).save();
 };
 </script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 </body>
 </html>
