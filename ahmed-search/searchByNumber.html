@@ -1,6 +1,6 @@
 
 
- <!-- <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
@@ -137,10 +137,10 @@
 </div>
    -->
   <!-- زرار الملاحظات (سيظهر فقط إذا هناك ملاحظات) -->
-  <!-- <button id="notesBtn" style="display:none;">المديونية</button>
+  <button id="notesBtn" style="display:none;">المديونية</button>
 
   <!-- نافذة منبثقة -->
-  <!-- <div id="notesModal">
+  <div id="notesModal">
     <div id="notesModalContent">
       <span id="closeModal">&times;</span>
       <h3>بيان بالمديونية الواردة على مقدم طلب الفحص</h3>
@@ -219,283 +219,29 @@
               document.getElementById("notesBtn").style.display = "none";
 
     }
-  } -->
+  } 
 
   // إغلاق الـ Modal
-// document.getElementById("closeModal").onclick = () => document.getElementById("notesModal").style.display = "none";
-// document.getElementById("notesModal").onclick = (e) => { 
-//   if(e.target.id === "notesModal") e.target.style.display = "none"; 
-// }
+ document.getElementById("closeModal").onclick = () => document.getElementById("notesModal").style.display = "none";
+ document.getElementById("notesModal").onclick = (e) => { 
+   if(e.target.id === "notesModal") e.target.style.display = "none"; 
+ }
 
-// function escapeHtml(text) {
-//   if (!text) return "";
-//   return text
-//     .replace(/&/g, "&amp;")
-//     .replace(/</g, "&lt;")
-//     .replace(/>/g, "&gt;")
-//     .replace(/"/g, "&quot;")
-//     .replace(/'/g, "&#039;");
-// }
-
-<!-- // </script>
-
-// </body>
-// </html>  -->
-
-
-
-
-<!-- ######################################################### -->
-
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>الاستعلام عن نتيجة الفحص</title>
-  <style>
-    body {
-      font-family: "Cairo", sans-serif;
-      direction: rtl;
-      background: linear-gradient(to bottom right, #0a1f44, #1e3c72, #2a5298);
-      margin: 0;
-      padding: 0;
-      color: #333;
-      text-align: center;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 50px auto;
-      padding: 20px;
-    }
-
-    h1 {
-      color: white;
-      margin-bottom: 25px;
-      font-weight: bold;
-    }
-
-    input {
-      width: 90%;
-      max-width: 300px;
-      padding: 10px;
-      margin: 5px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-      text-align: right;
-    }
-
-    button {
-      background: #004aad;
-      color: #fff;
-      border: none;
-      padding: 10px 20px;
-      margin-top: 10px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    button:hover {
-      background: #003580;
-    }
-
-    table {
-      width: 95%;
-      max-width: 800px;
-      margin: 20px auto;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    th {
-      background: #789ec7;
-      color: white;
-      padding: 10px;
-      width: 35%;
-      text-align: right;
-    }
-
-    td {
-      color: black;
-      padding: 10px;
-      text-align: right;
-      word-break: break-word;
-    }
-
-    .prewrap { white-space: pre-wrap; }
-
-    #message {
-      margin-top: 20px;
-      font-weight: bold;
-      color: red;
-    }
-    #notesModal { 
-      display:none; 
-      position:fixed; 
-      top:0; 
-      left:0; 
-      width:100%; 
-      height:100%; 
-      background:rgba(0,0,0,0.5); 
-      justify-content:center; 
-      align-items:center;
-    }
-
-    #notesModalContent { 
-      background:white; 
-      color:black; 
-      padding:20px; 
-      border-radius:10px; 
-      max-width:400px; 
-      width:90%; 
-      position:relative; 
-      max-height:80vh;
-      overflow-y:auto; 
-      overflow-x:auto;
-    }
-
-    #closeModal { 
-      position:absolute; 
-      top:10px; 
-      right:15px; 
-      cursor:pointer; 
-      font-size:20px; 
-    }
-
-    /* النموذج المميكن */
-    #mimkenFormContainer {
-      display:none;
-      background: rgba(255,255,255,0.95);
-      padding: 20px;
-      border-radius: 10px;
-      margin-top: 30px;
-    }
-    #mimkenFormContainer p {
-      text-align:right;
-      margin: 5px 0;
-    }
-    #downloadMimkenPdf {
-      margin-top: 15px;
-    }
-  </style>
-</head>
-<body>
-
-<div class="container">
-  <h1>الاستعلام عن نتيجة الفحص</h1>
-
-  <input type="text" id="number" placeholder="أدخل رقم الفحص">
-  <input type="text" id="year" placeholder="أدخل السنة">
-  <button onclick="searchData()">بحث</button>
-
-  <div id="result"></div>
-  <p id="message"></p>
-</div>
-
-<!-- النموذج المميكن -->
-<div class="container" id="mimkenFormContainer">
-  <h2>نموذج مميكن</h2>
-  <div id="mimkenFormContent"></div>
-  <button id="downloadMimkenPdf">تحميل كـ PDF</button>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script>
-async function searchData() {
-  const number = document.getElementById("number").value.trim();
-  const year = document.getElementById("year").value.trim();
-  const resultDiv = document.getElementById("result");
-  const message = document.getElementById("message");
-
-  resultDiv.innerHTML = "";
-  message.textContent = "";
-
-  if (!number || !year) {
-    message.textContent = "من فضلك أدخل رقم الفحص والسنة.";
-    return;
-  }
-
-  try {
-    const res = await fetch(`/api/search?number=${encodeURIComponent(number)}&year=${encodeURIComponent(year)}`);
-    const data = await res.json();
-
-    if (data.success) {
-      const r = data.result;
-
-      resultDiv.innerHTML = `
-        <table>
-          <tr><th>رقم الفحص</th><td>${r.number || "-"}</td></tr>
-          <tr><th>السنة</th><td>${r.year || "-"}</td></tr>
-          <tr><th>رقم القضية</th><td>${r.caseNumber || "-"}</td></tr>
-          <tr><th>اسم مقدم الطلب</th><td>${r.applicant || "-"}</td></tr>
-          <tr><th>حالة الفحص</th><td>${r.status || "-"}</td></tr>
-          <tr><th>ما تم في الفحص</th><td class="prewrap">${r.visa || "-"}</td></tr>
-          <tr><th>ملاحظات</th><td class="prewrap">${r.notes || "-"}</td></tr>
-          <tr><th>كود القضية</th><td class="prewrap">${r.code || "-"}</td></tr>
-        </table>
-      `;
-
-      // عرض النموذج المميكن لو العمود hasNotes فيه "مميكن"
-      checkMimkenInTable(r);
-
-    } else {
-      message.textContent = data.message || "لم يتم العثور على بيانات.";
-      document.getElementById("mimkenFormContainer").style.display = "none";
-    }
-
-  } catch (err) {
-    console.error(err);
-    message.textContent = "حدث خطأ أثناء البحث.";
-    document.getElementById("mimkenFormContainer").style.display = "none";
-  }
+function escapeHtml(text) {
+  if (!text) return "";
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
-// ======= وظيفة النموذج المميكن =======
-function checkMimkenInTable(r) {
-  const mimkenFormContainer = document.getElementById("mimkenFormContainer");
-  const mimkenFormContent = document.getElementById("mimkenFormContent");
+ </script>
 
-  if (r.hasNotes && r.hasNotes.toLowerCase().includes("مميكن")) {
-    mimkenFormContainer.style.display = "block";
+ </body>
+ </html> 
 
-    mimkenFormContent.innerHTML = `
-      <p><strong>رقم الفحص:</strong> ${r.number || "-"}</p>
-      <p><strong>السنة:</strong> ${r.year || "-"}</p>
-      <p><strong>رقم القضية:</strong> ${r.caseNumber || "-"}</p>
-      <p><strong>اسم مقدم الطلب:</strong> ${r.applicant || "-"}</p>
-      <p><strong>حالة الفحص:</strong> ${r.status || "-"}</p>
-      <p><strong>ما تم في الفحص:</strong> ${r.visa || "-"}</p>
-      <p><strong>ملاحظات:</strong> ${r.notes || "-"}</p>
-      <p><strong>كود القضية:</strong> ${r.code || "-"}</p>
-    `;
 
-    const downloadBtn = document.getElementById("downloadMimkenPdf");
-    downloadBtn.onclick = () => {
-      const content = document.getElementById("mimkenFormContent");
-      html2pdf().set({
-        margin: [10,10,10,10],
-        filename: 'نموذج_المميكن.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'px', format: 'a4', orientation: 'portrait' }
-      }).from(content).save();
-    };
 
-  } else {
-    mimkenFormContainer.style.display = "none";
-  }
-}
-</script>
-
-</body>
-</html>
-
-<!--ده التجربة الاخيره  -->
 
