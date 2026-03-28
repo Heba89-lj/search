@@ -27,7 +27,7 @@
 
 <!-- 🔵 بيانات قبل صفة مقدم الطلب -->
 <p><span>رقم الفحص :</span></p>
-<input type="text" id="examNumber" readonly>
+<input type="text" id="number" readonly>
 
 <p><span>رقم الطلب :</span></p>
 <input type="text" id="requestNumber" readonly>
@@ -127,8 +127,8 @@ const nationalId = params.get("nationalId") || "";
 
 // ملء الحقول تلقائيًا
 document.getElementById("selfName").value = selfName;
-  document.getElementById("examNumber").value = examNumber;
-document.getElementById("requestNumber").value = requestNumber;
+  document.getElementById("number").value =  number;
+// document.getElementById("requestNumber").value = requestNumber;
 document.getElementById("nationalId").value = nationalId;
   document.querySelectorAll(".caseNumber").forEach(el => {
   el.value = caseNumber;
