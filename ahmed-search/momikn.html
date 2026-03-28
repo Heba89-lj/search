@@ -120,13 +120,19 @@
 const params = new URLSearchParams(window.location.search);
 const selfName = params.get("selfName") || "";
 const caseNumber = params.get("caseNumber") || "";
+  const examNumber = params.get("examNumber") || "";
+const requestNumber = params.get("requestNumber") || "";
+const nationalId = params.get("nationalId") || "";
 
 
 // ملء الحقول تلقائيًا
 document.getElementById("selfName").value = selfName;
-// document.getElementById("caseNumber").value = caseNumber;
+  document.getElementById("examNumber").value = examNumber;
+document.getElementById("requestNumber").value = requestNumber;
+document.getElementById("nationalId").value = nationalId;
   document.querySelectorAll(".caseNumber").forEach(el => {
   el.value = caseNumber;
+  
 });
 
 // لو عايزة الفورم يظهر مباشرة للـ self
