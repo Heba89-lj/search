@@ -25,23 +25,40 @@
 <div class="container" id="mimkenForm">
   <h2>نموذج طلب مميكن لإسترداد مبلغ مالي</h2>
 
+<!-- 🔵 بيانات قبل صفة مقدم الطلب -->
+<p><span>رقم الفحص :</span></p>
+<input type="text" id="examNumber" readonly>
+
+<p><span>رقم الطلب :</span></p>
+<input type="text" id="requestNumber" readonly>
+
+
 <p><span>صفة مقدم الطلب :</span></p>
-  <select id="applicantType">
-    <option value="">اختر</option>
-    <option value="self">بنفسه</option>
-    <option value="agent">وكيلا عن</option>
-  </select>
+<select id="applicantType">
+  <option value="">اختر</option>
+  <option value="self">بنفسه</option>
+  <option value="agent">وكيلا عن</option>
+</select>
 
-  <div id="selfFields" class="hidden">
-<p><span>اسم مقدم الطلب:</span></p>
-    <input type="text" id="selfName" readonly>
-    
-<p><span>رقم الهاتف :</span></p>
-    <input type="text" id="selfPhone" maxlength="11">
 
-     <p><span>رقم القضية :</span></p>
-    <input type="text" class="caseNumber" readonly>
-    
+<div id="selfFields" class="hidden">
+
+  <p><span>اسم مقدم الطلب:</span></p>
+  <input type="text" id="selfName" readonly>
+
+  <!-- 🔵 الرقم القومي بعد الاسم -->
+  <p><span>الرقم القومي :</span></p>
+  <input type="text" id="nationalId" readonly>
+
+ <p><span>رقم القضية :</span></p>
+  <input type="text" class="caseNumber" readonly>
+  
+  <p><span>رقم الهاتف :</span></p>
+  <input type="text" id="selfPhone" maxlength="11">
+
+ 
+
+</div>
     <p class="note"><span>ملحوظة :يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن </span> </p>
   </div>
 
