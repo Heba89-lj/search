@@ -8,36 +8,14 @@
   body { font-family: "Cairo", sans-serif; background: #f4f4f4; margin:0; padding:0; }
   .container { max-width:800px; margin:20px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.2); }
   h2 { text-align:center; color:#004aad; }
-  /* p { margin:10px 0; }
+  p { margin:10px 0; }
   input, select { width:100%; padding:8px; margin-top:5px; margin-bottom:15px; border-radius:5px; border:1px solid #ccc; }
   input[readonly] { background:#eee; }
   .hidden { display:none; }
   button { background:#004aad; color:#fff; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; }
   button:hover { background:#003580; }
-  .note { font-size:14px; color:red; margin-top:-10px; margin-bottom:10px; } */
-  .form-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* عمودين */
-  gap: 15px;
-  align-items: center;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  text-align: right;
-}
-
-/* الحقل الأخير في النص */
-.full-width {
-  grid-column: 1 / -1;
-  text-align: center;
-}
-
-.full-width input {
-  width: 50%;
-  margin: auto;
-}
+  .note { font-size:14px; color:red; margin-top:-10px; margin-bottom:10px; }
+  
   input, select, textarea {
   text-align: right; /* يجعل النص يبدأ من أول الحقل */
 }
@@ -48,42 +26,29 @@
 <div class="container" id="mimkenForm">
   <h2>نموذج طلب مميكن لإسترداد مبلغ مالي</h2>
 
-<div class="form-grid">
-
-  <div class="form-group">
-    <p>رقم الفحص :</p>
-    <input type="number" id="number" readonly>
-  </div>
-
-  <div class="form-group">
-    <p>رقم الطلب :</p>
-    <input type="text" id="requestNumber" readonly>
-  </div>
-
-  <p><span>صفة مقدم الطلب :</span></p> <select id="applicantType"> <option value="">اختر</option> <option value="self">بنفسه</option> <option value="agent">وكيلا عن</option> </select>
-
-  <div class="form-group">
-    <p>اسم مقدم الطلب :</p>
-    <input type="text" id="selfName" readonly>
-  </div>
-
-  <div class="form-group">
-    <p>الرقم القومي :</p>
+<div class="container" id="mimkenForm">
+  <h2>نموذج طلب مميكن لإسترداد مبلغ مالي</h2>
+  <!-- 🔵 بيانات قبل صفة مقدم الطلب -->
+  <p><span>رقم الفحص :</span></p> 
+  <input type="number" id="number" readonly> 
+  <p><span>رقم الطلب :</span></p>
+  <input type="text" id="requestNumber" readonly> 
+  <p><span>صفة مقدم الطلب :</span></p>
+  <select id="applicantType"> 
+    <option value="">اختر</option>
+    <option value="self">بنفسه</option> 
+    <option value="agent">وكيلا عن</option> 
+  </select>
+  <div id="selfFields" class="hidden">
+    <p><span>اسم مقدم الطلب:</span></p>
+    <input type="text" id="selfName" readonly> 
+    <!-- 🔵 الرقم القومي بعد الاسم -->
+    <p><span>الرقم القومي :</span></p>
     <input type="text" id="nationalId" readonly>
-  </div>
-
-  <div class="form-group">
-    <p>رقم القضية :</p>
-    <input type="text" class="caseNumber" readonly>
-  </div>
-
-  <!-- الحقل السابع في النص -->
-  <div class="form-group full-width">
-    <p>رقم الهاتف :</p>
+    <p><span>رقم القضية :</span></p>
+    <input type="text" class="caseNumber" readonly> 
+    <p><span>رقم الهاتف :</span></p>
     <input type="text" id="selfPhone" maxlength="11">
-  </div>
-
-</div>
 </div>
     <p class="note"><span>ملحوظة :يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن </span> </p>
   </div>
