@@ -201,9 +201,13 @@
     //       }
          notesBtn.onclick = () => {
     // تمرير البيانات من نفس الصف (r) لصفحة momikn.html
-    const url = `momikn.html?selfName=${encodeURIComponent(r.applicant)}&caseNumber=${encodeURIComponent(r.caseNumber)}`;
-    window.location.href = url;
-}
+const url = `momikn.html?selfName=${encodeURIComponent(r.applicant)}
+&caseNumber=${encodeURIComponent(r.caseNumber)}
+&examNumber=${encodeURIComponent(r.number)}
+&requestNumber=${encodeURIComponent(r.code)}
+&nationalId=${encodeURIComponent(r.nationalId || "")}`;
+
+window.location.href = url;
 
         } else if(r.hasNotes && r.hasNotes.toString().toLowerCase().includes("ملاحظات")){
           notesBtn.textContent = "المديونية";
