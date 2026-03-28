@@ -99,13 +99,19 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-  // بيانات افتراضية من Excel
-  const excelData = {
-    selfName: "أحمد محمد علي",
-    agentFor: "محمد سعيد حسن",
-    caseNumber: "12345",
-    personID: "29001011234567"
-  };
+ // جلب البيانات من الرابط
+const params = new URLSearchParams(window.location.search);
+const selfName = params.get("selfName") || "";
+const caseNumber = params.get("caseNumber") || "";
+
+
+// ملء الحقول تلقائيًا
+document.getElementById("selfName").value = selfName;
+document.getElementById("caseNumber").value = caseNumber;
+
+// لو عايزة الفورم يظهر مباشرة للـ self
+document.getElementById("applicantType").value = "self";
+document.getElementById("selfFields").classList.remove("hidden");
 
   // عرض الحقول حسب اختيار مقدم الطلب
   document.getElementById("applicantType").addEventListener("change", function(){
