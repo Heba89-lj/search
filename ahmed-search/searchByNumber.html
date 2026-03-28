@@ -195,19 +195,14 @@
           notesBtn.textContent = "نموذج مميكن";
           notesBtn.style.display = "inline-block";
 
-    //       notesBtn.onclick = () => {
-    //      // تحويل المستخدم مباشرة لصفحة النموذج
-    // window.location.href = "/momikn.html";
-    //       }
          notesBtn.onclick = () => {
     // تمرير البيانات من نفس الصف (r) لصفحة momikn.html
 const url = `momikn.html?selfName=${encodeURIComponent(r.applicant)}
 &caseNumber=${encodeURIComponent(r.caseNumber)}
 &number=${encodeURIComponent(r.number)}
-// &requestNumber=${encodeURIComponent(r.code)}
 &nationalId=${encodeURIComponent(r.nationalId || "")}`;
 
-window.location.href = url;
+window.location.href = url;}
 
         } else if(r.hasNotes && r.hasNotes.toString().toLowerCase().includes("ملاحظات")){
           notesBtn.textContent = "المديونية";
