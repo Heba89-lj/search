@@ -22,7 +22,7 @@
 <div class="container" id="mimkenForm">
   <h2>نموذج طلب مميكن لإسترداد مبلغ مالي</h2>
 
-  <p>صفة مقدم الطلب:</p>
+  <p>:صفة مقدم الطلب</p>
   <select id="applicantType">
     <option value="">اختر</option>
     <option value="self">بنفسه</option>
@@ -30,32 +30,32 @@
   </select>
 
   <div id="selfFields" class="hidden">
-    <p>الاسم:</p>
+    <p>:الاسم</p>
     <input type="text" id="selfName" readonly>
     
-    <p>رقم الهاتف (11 رقم):</p>
+    <p>:رقم الهاتف (11 رقم)</p>
     <input type="text" id="selfPhone" maxlength="11">
     
-    <p class="note">ملحوظة: يجب إرفاق صورة من بطاقة الرقم القومي والتأكد من أن الهاتف مسجل باسم صاحب الشأن</p>
+    <p class="note">ملحوظة: يجب إرفاق صورة من بطاقة الرقم القومي </p>
   </div>
 
   <div id="agentFields" class="hidden">
-    <p>اسم المحامي رباعي:</p>
+    <p>:اسم المحامي رباعي</p>
     <input type="text" id="agentName">
     
-    <p>وكيلا عن:</p>
+    <p>:وكيلا عن</p>
     <input type="text" id="agentFor" readonly>
     
-    <p>رقم القضية:</p>
+    <p>:رقم القضية</p>
     <input type="text" id="caseNumber" readonly>
     
-    <p>الرقم القومي:</p>
+    <p>:الرقم القومي</p>
     <input type="text" id="personID" readonly>
     
-    <p>رقم القيد (أقصى 7 أرقام):</p>
+    <p>:رقم القيد (أقصى 7 أرقام)</p>
     <input type="text" id="registryNumber" maxlength="7">
     
-    <p>نوع القيد:</p>
+    <p>:نوع القيد</p>
     <select id="registryType">
       <option value="">اختر</option>
       <option>إبتدائي</option>
@@ -64,29 +64,29 @@
       <option>عام</option>
     </select>
     
-    <p>الرقم القومي للمحامي (أقصى 14 رقم):</p>
+    <p>:الرقم القومي للمحامي (أقصى 14 رقم)</p>
     <input type="text" id="agentID" maxlength="14">
     
-    <p>جهة إصدار التوكيل:</p>
+    <p>:جهة إصدار التوكيل</p>
     <input type="text" id="agency">
     
-    <p>رقم التوكيل:</p>
+    <p>:رقم التوكيل</p>
     <input type="text" id="powerNumber">
     
-    <p>حرف التوكيل:</p>
+    <p>:حرف التوكيل</p>
     <input type="text" id="powerLetter">
     
-    <p>سنة التوكيل:</p>
+    <p>:سنة التوكيل</p>
     <input type="text" id="powerYear">
     
-    <p>رقم الهاتف للمحامي (11 رقم):</p>
+    <p>:رقم الهاتف للمحامي (11 رقم)</p>
     <input type="text" id="agentPhone" maxlength="11">
 
     <p class="note">ملحوظة: يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي</p>
   </div>
 
-  <p>تحريرا في: <span id="currentDate"></span></p>
-  <p>توقيع مقدم الطلب: ____________________</p>
+  <p>:تحريرا في <span id="currentDate"></span></p>
+  <p>:توقيع مقدم الطلب ____________________</p>
 
   <button id="downloadPdf">تحميل النموذج كـ PDF</button>
 </div>
