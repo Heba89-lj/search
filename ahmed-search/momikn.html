@@ -238,6 +238,18 @@ button:hover { background:#003580; }
 .flex-container.single { grid-template-columns: 1fr; }
 
 input, select, textarea { text-align: right; }
+ 
+/* عناصر مخفية عند الطباعة */
+@media print {
+  #selfNote,
+  #agentNote,
+  #downloadPdf,
+  
+  .note {
+    display: none !important;
+  }
+}
+
 </style>
 </head>
 <body>
