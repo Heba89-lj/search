@@ -302,7 +302,7 @@ input, select, textarea { text-align: right; }
   <!-- 👇 اسم الوكيل -->
   <div id="agentNameTop" class="hidden">
     <p><span>اسم الوكيل :</span></p>
-    <input type="text" id="agentNameTopInput">
+    <input type="text" id="agentNameTopInput" >
   </div>
 
   <!-- 👇 رقم القضية هنا بقى -->
@@ -326,7 +326,7 @@ input, select, textarea { text-align: right; }
 
       <div>
         <p><span>رقم الهاتف :</span></p>
-        <input type="text" id="selfPhone" maxlength="11">
+        <input type="text" id="selfPhone" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="11">
       </div>
     </div>
 
@@ -364,7 +364,7 @@ input, select, textarea { text-align: right; }
 
       <div>
         <p><span>جهة إصدار التوكيل :</span></p>
-        <input type="text" id="agency">
+        <input type="text" id="agency" oninput="this.value=this.value.replace(/[^\u0621-\u064A\s]/g,'')">
       </div>
       <div>
         <p><span>رقم التوكيل :</span></p>
