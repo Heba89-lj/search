@@ -480,29 +480,18 @@ document.addEventListener("DOMContentLoaded", function() {
       }
     }
 
-    const element = document.getElementById("mimkenForm");
+   
 
-    html2pdf().set({
-      margin: [10,10,10,10],
-      filename: 'نموذج_مميكن.pdf',
-      image: { type: 'jpeg', quality: 1 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-    }).from(element).save();
-
-  });
+  const element = document.getElementById("mimkenForm");
+  html2pdf().set({
+    margin: [10,10,10,10],
+    filename: 'نموذج_مميكن.pdf',
+    image: { type: 'jpeg', quality: 1 },
+    html2canvas: { scale: 2, useCORS: true },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(element).save();
 });
-
-//   const element = document.getElementById("mimkenForm");
-//   html2pdf().set({
-//     margin: [10,10,10,10],
-//     filename: 'نموذج_مميكن.pdf',
-//     image: { type: 'jpeg', quality: 1 },
-//     html2canvas: { scale: 2, useCORS: true },
-//     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-//   }).from(element).save();
-// });
-// window.onload = function(){
+window.onload = function(){
 
   function onlyNumbers(input){
     if(!input) return;
