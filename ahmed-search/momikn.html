@@ -267,7 +267,9 @@ input, select, textarea { text-align: right; }
     display: none !important;
   }
 }
-
+.full-width {
+  grid-column: 1 / -1;
+}
 </style>
 </head>
 <body>
@@ -316,7 +318,7 @@ input, select, textarea { text-align: right; }
 
       
     
-    <div style="grid-column: span 2;">
+  <div class="full-width">
   <p><span>رقم القضية :</span></p>
   <input type="text" class="caseNumber" readonly>
 </div>
