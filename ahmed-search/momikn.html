@@ -336,11 +336,11 @@ input, select, textarea { text-align: right; }
 
       <div>
         <p><span>رقم القضية :</span></p>
-        <input type="number" class="caseNumber" readonly>
+        <input type="text" class="caseNumber" readonly>
       </div>
       <div>
         <p><span>رقم القيد :</span></p>
-        <input type="number" id="registryNumber" maxlength="7">
+        <input type="text" id="registryNumber" maxlength="7">
       </div>
 
       <div>
@@ -409,7 +409,7 @@ const nationalId = params.get("nationalId") || "";
 document.getElementById("selfName").value = selfName;
 document.getElementById("number").value = number;
 document.getElementById("nationalId").value = nationalId;
-
+document.getElementById("clientName").value = r.clientName || "";
 document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
 
 const applicantType = document.getElementById("applicantType");
