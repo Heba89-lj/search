@@ -475,7 +475,7 @@ const agentName = document.getElementById("agentNameTopInput").value.trim();
  const powerLetter = document.getElementById("powerLetter").value.trim();
    const powerYear = document.getElementById("powerYear").value.trim();
    const agentPhone = document.getElementById("agentPhone").value.trim(); 
-   if(agentName.split(/\s+/).length < 2){ alert("اسم الوكيل يجب أن يكون على الأقل اسمين"); return; } 
+   if(agentName.split(/\s+/).length < 4){ alert("اسم الوكيل يجب أن يكون على الأقل اسمين"); return; } 
    if(registryNumber.length === 0 || isNaN(registryNumber)) { alert("رقم القيد يجب أن يكون رقما"); return; }
    if(registryType === "") { alert("اختر نوع القيد"); return; }
    if(agentID.length !== 14 || isNaN(agentID)) { alert("الرقم القومي للوكيل يجب أن يحتوي على 14 رقم"); return; }
