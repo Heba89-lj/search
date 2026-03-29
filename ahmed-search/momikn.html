@@ -409,10 +409,12 @@ const selfName = params.get("selfName") || "";
 const caseNumber = params.get("caseNumber") || "";
 const number = params.get("number") || "";
 const nationalId = params.get("nationalId") || "";
+ const clientName = params.get("clientName") || "";
 
 document.getElementById("selfName").value = selfName;
 document.getElementById("number").value = number;
 document.getElementById("nationalId").value = nationalId;
+ document.getElementById("clientName").value = clientName;
 document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
 
 const applicantType = document.getElementById("applicantType");
