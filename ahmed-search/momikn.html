@@ -304,7 +304,7 @@ input, select, textarea { text-align: right; }
       </div>
       <div>
         <p><span>الرقم القومي :</span></p>
-        <input type="text" id="nationalId" readonly>
+        <input type="text" class="nationalId" readonly>
       </div>
 
       
@@ -379,9 +379,14 @@ input, select, textarea { text-align: right; }
         <p><span>اسم الموكل :</span></p>
         <input type="text" class="selfName" readonly>
       </div>
+
+ <div >
+        <p><span>الرقم القومى للموكل</span></p>
+        <input type="text" class="nationalId" readonly>
+      </div>
      
-      <div class="single">
-        <p><span>رقم الهاتف للوكيل (11 رقم)</span></p>
+      <div >
+        <p><span>رقم الهاتف للوكيل</span></p>
         <input type="text" id="agentPhone" maxlength="11">
       </div>
     </div>
@@ -414,6 +419,7 @@ document.getElementById("number").value = number;
 document.getElementById("nationalId").value = nationalId;
 document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
 document.querySelectorAll(".selfName").forEach(el => el.value = selfName);
+document.querySelectorAll(".nationalId").forEach(el => el.value = nationalId);
 
 const applicantType = document.getElementById("applicantType");
 applicantType.addEventListener("change", function() {
