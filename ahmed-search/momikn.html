@@ -286,9 +286,13 @@ input, select, textarea { text-align: right; }
     <input type="text" id="requestNumber" readonly> 
   </div>
   <div class="single">
-        <p><span>رقم القضية :</span></p>
-        <input type="text" class="caseNumber" readonly>
-      </div>
+    <p><span>صفة مقدم الطلب :</span></p>
+    <select id="applicantType"> 
+      <option value="">اختر</option>
+      <option value="self">بنفسه</option> 
+      <option value="agent">وكيلا عن</option> 
+    </select>
+  </div>
 </div>
 
   <!-- ==== الحقول للشخص بنفسه ==== -->
@@ -304,14 +308,11 @@ input, select, textarea { text-align: right; }
       </div>
 
       
-     <div >
-    <p><span>صفة مقدم الطلب :</span></p>
-    <select id="applicantType"> 
-      <option value="">اختر</option>
-      <option value="self">بنفسه</option> 
-      <option value="agent">وكيلا عن</option> 
-    </select>
-  </div>
+    
+      <div >
+        <p><span>رقم القضية :</span></p>
+        <input type="text" class="caseNumber" readonly>
+      </div>
       <div>
         <p><span>رقم الهاتف :</span></p>
         <input type="text" id="selfPhone" maxlength="11">
