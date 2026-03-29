@@ -493,23 +493,22 @@ const agentName = document.getElementById("agentNameTopInput").value.trim();
   //     this.value = this.value.replace(/[^0-9]/g, "");
   //   });
   // }
-function onlyNumbers(input){
-  if(!input) return;
-
-  const arabicNumsMap = {
-    '٠':'0', '١':'1', '٢':'2', '٣':'3', '٤':'4',
-    '٥':'5', '٦':'6', '٧':'7', '٨':'8', '٩':'9'
-  };
-
-  input.addEventListener("input", function(){
-    let val = this.value;
-    // تحويل الأرقام العربية للإنجليزية
-    val = val.replace(/[٠-٩]/g, d => arabicNumsMap[d]);
-    // إزالة أي شيء مش رقم
-    val = val.replace(/[^0-9]/g, '');
-    this.value = val;
+function onlyNumbers(input) {
+  if (!input) return;
+  input.addEventListener("input", function () {
+    // تحويل أي أرقام عربية لأرقام إنجليزية
+    this.value = this.value.replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+                           .replace(/[^0-9]/g, ""); // إزالة أي حاجه مش رقم
   });
 }
+
+// مثال على الحقل
+onlyNumbers(document.getElementById("selfPhone"));
+onlyNumbers(document.getElementById("agentPhone"));
+onlyNumbers(document.getElementById("registryNumber"));
+onlyNumbers(document.getElementById("agentID"));
+onlyNumbers(document.getElementById("powerNumber"));
+onlyNumbers(document.getElementById("powerYear"));
   function onlyArabic(input){
     if(!input) return;
     input.addEventListener("input", function(){
