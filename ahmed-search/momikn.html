@@ -345,8 +345,7 @@ input, select, textarea { text-align: right; }
       
       <div>
         <p><span>رقم القيد :</span></p>
-        <input type="text" id="registryNumber" maxlength="7">
-      </div>
+<input type="text" id="registryNumber" oninput="this.value=this.value.replace(/[^0-9]/g,'')" maxlength="7">      </div>
 
       <div>
         <p><span>نوع القيد :</span></p>
