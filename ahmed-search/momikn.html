@@ -52,7 +52,9 @@
   
   <div>
   
-  <p class="note" id="selfNote"> ملحوظة :يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن 
+  <!-- ملحوظة self -->
+<p id="selfNote" class="note hidden">
+  ملحوظة: يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن
 </p>
   
 
@@ -110,8 +112,9 @@
   <input type="text" id="agentPhone" maxlength="11">
 
 </div>
-<p class="note" id="agentNote">
- ملحوظة : يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي 
+<!-- ملحوظة agent -->
+<p id="agentNote" class="note hidden">
+  ملحوظة: يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي
 </p>
 
   </div>
@@ -146,29 +149,25 @@ document.getElementById("nationalId").value = nationalId;
 document.getElementById("applicantType").value = "self";
 document.getElementById("selfFields").classList.remove("hidden");
 
-  // عرض الحقول حسب اختيار مقدم الطلب
+// عرض الحقول حسب اختيار مقدم الطلب مع التحكم في الملحوظتين
 document.getElementById("applicantType").addEventListener("change", function(){
   const val = this.value;
-
-  const selfFields = document.getElementById("selfFields");
-  const agentFields = document.getElementById("agentFields");
-  const selfNote = document.getElementById("selfNote");
-  const agentNote = document.getElementById("agentNote");
-
-  // اخفاء الكل
-  selfFields.classList.add("hidden");
-  agentFields.classList.add("hidden");
-  selfNote.style.display = "none";
-  agentNote.style.display = "none";
+  
+  // اخفاء جميع الحقول والملحوظات بالبداية
+  document.getElementById("selfFields").classList.add("hidden");
+  document.getElementById("agentFields").classList.add("hidden");
+  document.getElementById("selfNote").classList.add("hidden");
+  document.getElementById("agentNote").classList.add("hidden");
 
   if(val === "self"){
-    selfFields.classList.remove("hidden");
-    selfNote.style.display = "block";
+    document.getElementById("selfFields").classList.remove("hidden");
+    document.getElementById("selfNote").classList.remove("hidden"); // اظهار ملحوظة self
+    document.getElementById("selfName").value = selfName;
   }
 
   if(val === "agent"){
-    agentFields.classList.remove("hidden");
-    agentNote.style.display = "block";
+    document.getElementById("agentFields").classList.remove("hidden");
+    document.getElementById("agentNote").classList.remove("hidden"); // اظهار ملحوظة agent
   }
 });
 
