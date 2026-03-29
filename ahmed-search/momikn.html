@@ -485,8 +485,14 @@ const agentName = document.getElementById("agentNameTopInput").value.trim();
    if(agentPhone.length !== 11 || isNaN(agentPhone)) { alert("رقم الهاتف للوكيل يجب أن يحتوي على 11 رقم"); return; }
   } else { alert("اختر صفة مقدم الطلب"); return; } 
   const element = document.getElementById("mimkenForm");
-  html2pdf().set({ margin: [10,10,10,10], filename: 'نموذج_مميكن.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(element).save(); });
-
+html2pdf().set({
+  margin: [10, 10, 10, 10],
+  filename: 'نموذج_مميكن.pdf',
+  image: { type: 'jpeg', quality: 1 },
+  html2canvas: { scale: window.devicePixelRatio, useCORS: true, scrollY: -window.scrollY },
+  jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+  pagebreak: { mode: ['css', 'legacy'] } // يقسم الصفحة بدل ما يقص
+}).from(element).save();
   // function onlyNumbers(input){
   //   if(!input) return;
   //   input.addEventListener("input", function(){
