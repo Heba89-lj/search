@@ -238,6 +238,24 @@ button:hover { background:#003580; }
 .flex-container.single { grid-template-columns: 1fr; }
 
 input, select, textarea { text-align: right; }
+ .signature-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* محاذاة العمودين لأعلى */
+  margin-top: 20px;
+}
+
+.signature-container .left,
+.signature-container .right {
+  width: 48%; /* تقريباً نصف الشاشة لكل عمود */
+}
+
+.signature-container .right .signer-name {
+  margin-top: 10px; /* سطر تحت للتوقيع */
+  border-top: 1px solid #000; /* خط للتوقيع */
+  width: fit-content;
+  padding-top: 2px;
+}
  
 /* عناصر مخفية عند الطباعة */
 @media print {
@@ -370,9 +388,14 @@ input, select, textarea { text-align: right; }
   </div>
 
   <!-- التاريخ والتوقيع وزر التحميل دائماً -->
-  <p>:تحريرا في <span id="currentDate"></span></p>
-  <p><span>توقيع مقدم الطلب : ____________________ </span></p>
-  <button id="downloadPdf">تحميل النموذج كـ PDF</button>
+  <div class="signature-container">
+  <div class="left">
+    <span>:تحريرا في <span id="currentDate"></span></span>
+  </div>
+  <div class="right">
+    <span>المقر بما فيه</span>
+    <div class="signer-name">اسم الموقع هنا</div>
+  </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
