@@ -51,8 +51,9 @@
 </div>
   
   <div>
-    <p class="note"><span>ملحوظة :يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن </span> </p>
   
+  <p class="note" id="selfNote"> ملحوظة :يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من ان الهاتف مسجل باسم صاحب الشأن 
+</p>
   
 
   <button id="downloadPdf">تحميل النموذج كـ PDF</button>
@@ -109,8 +110,10 @@
   <input type="text" id="agentPhone" maxlength="11">
 
 </div>
+<p class="note" id="agentNote">
+ ملحوظة : يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي 
+</p>
 
-    <p class="note"> ملحوظة : يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي </p>
   </div>
 
   <p>:تحريرا في <span id="currentDate"></span></p>
@@ -144,22 +147,30 @@ document.getElementById("applicantType").value = "self";
 document.getElementById("selfFields").classList.remove("hidden");
 
   // عرض الحقول حسب اختيار مقدم الطلب
-  document.getElementById("applicantType").addEventListener("change", function(){
-    const val = this.value;
-    document.getElementById("selfFields").classList.add("hidden");
-    document.getElementById("agentFields").classList.add("hidden");
+document.getElementById("applicantType").addEventListener("change", function(){
+  const val = this.value;
 
-    if(val === "self"){
-      document.getElementById("selfFields").classList.remove("hidden");
-      document.getElementById("selfName").value =selfName;
-    }
-    if(val === "agent"){
-      document.getElementById("agentFields").classList.remove("hidden");
-      // document.getElementById("agentFor").value = excelData.agentFor;
-      // document.getElementById("caseNumber").value = excelData.caseNumber;
-      // document.getElementById("personID").value = excelData.personID;
-    }
-  });
+  const selfFields = document.getElementById("selfFields");
+  const agentFields = document.getElementById("agentFields");
+  const selfNote = document.getElementById("selfNote");
+  const agentNote = document.getElementById("agentNote");
+
+  // اخفاء الكل
+  selfFields.classList.add("hidden");
+  agentFields.classList.add("hidden");
+  selfNote.style.display = "none";
+  agentNote.style.display = "none";
+
+  if(val === "self"){
+    selfFields.classList.remove("hidden");
+    selfNote.style.display = "block";
+  }
+
+  if(val === "agent"){
+    agentFields.classList.remove("hidden");
+    agentNote.style.display = "block";
+  }
+});
 
   // التاريخ الحالي
   document.getElementById("currentDate").textContent = new Date().toLocaleDateString('ar-EG');
