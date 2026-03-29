@@ -491,25 +491,32 @@ document.getElementById("downloadPdf").addEventListener("click", function(){
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   }).from(element).save();
 });
- function onlyNumbers(input){
-  input.addEventListener("input", function(){
-    this.value = this.value.replace(/[^0-9]/g, "");
-  });
-}
+window.onload = function(){
 
- function onlyArabic(input){
-  input.addEventListener("input", function(){
-    this.value = this.value.replace(/[^\u0621-\u064A\s]/g, "");
-  });
-}
- // ربط الحقول
-onlyNumbers(document.getElementById("registryNumber"));
-onlyNumbers(document.getElementById("agentID"));
-onlyNumbers(document.getElementById("powerNumber"));
-onlyNumbers(document.getElementById("powerYear"));
-onlyNumbers(document.getElementById("agentPhone"));
+  function onlyNumbers(input){
+    if(!input) return;
+    input.addEventListener("input", function(){
+      this.value = this.value.replace(/[^0-9]/g, "");
+    });
+  }
 
-onlyArabic(document.getElementById("powerLetter"));
+  function onlyArabic(input){
+    if(!input) return;
+    input.addEventListener("input", function(){
+      this.value = this.value.replace(/[^\u0621-\u064A\s]/g, "");
+    });
+  }
+
+  // ربط الحقول
+  onlyNumbers(document.getElementById("registryNumber"));
+  onlyNumbers(document.getElementById("agentID"));
+  onlyNumbers(document.getElementById("powerNumber"));
+  onlyNumbers(document.getElementById("powerYear"));
+  onlyNumbers(document.getElementById("agentPhone"));
+
+  onlyArabic(document.getElementById("powerLetter"));
+
+};
 </script>
 </body>
 </html>
