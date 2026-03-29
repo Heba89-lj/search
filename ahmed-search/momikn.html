@@ -245,19 +245,25 @@ input, select, textarea { text-align: right; }
 <div class="container" id="mimkenForm">
   <h2>نموذج طلب مميكن لإسترداد مبلغ مالي</h2>
 
-  <!-- بيانات قبل صفة مقدم الطلب -->
-  <p><span>رقم الفحص :</span></p> 
-  <input type="number" id="number" readonly> 
-
-  <p><span>رقم الطلب :</span></p>
-  <input type="text" id="requestNumber" readonly> 
-
-  <p><span>صفة مقدم الطلب :</span></p>
-  <select id="applicantType"> 
-    <option value="">اختر</option>
-    <option value="self">بنفسه</option> 
-    <option value="agent">وكيلا عن</option> 
-  </select>
+ <!-- بيانات قبل صفة مقدم الطلب -->
+<div class="flex-container">
+  <div>
+    <p><span>رقم الفحص :</span></p> 
+    <input type="number" id="number" readonly> 
+  </div>
+  <div>
+    <p><span>رقم الطلب :</span></p>
+    <input type="text" id="requestNumber" readonly> 
+  </div>
+  <div class="single">
+    <p><span>صفة مقدم الطلب :</span></p>
+    <select id="applicantType"> 
+      <option value="">اختر</option>
+      <option value="self">بنفسه</option> 
+      <option value="agent">وكيلا عن</option> 
+    </select>
+  </div>
+</div>
 
   <!-- ==== الحقول للشخص بنفسه ==== -->
   <div id="selfFields" class="hidden">
