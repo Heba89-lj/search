@@ -281,11 +281,13 @@ input, select, textarea { text-align: right; }
     <p><span>رقم الفحص :</span></p> 
     <input type="number" id="number" readonly> 
   </div>
+
   <div>
     <p><span>رقم الطلب :</span></p>
     <input type="text" id="requestNumber" readonly> 
   </div>
-  <div class="single">
+
+  <div>
     <p><span>صفة مقدم الطلب :</span></p>
     <select id="applicantType"> 
       <option value="">اختر</option>
@@ -293,8 +295,13 @@ input, select, textarea { text-align: right; }
       <option value="agent">وكيلا عن</option> 
     </select>
   </div>
-</div>
 
+  <!-- 👇 اسم الوكيل هنا -->
+  <div id="agentNameTop" class="hidden">
+    <p><span>اسم الوكيل :</span></p>
+    <input type="text" id="agentNameTopInput">
+  </div>
+</div>
   <!-- ==== الحقول للشخص بنفسه ==== -->
   <div id="selfFields" class="hidden">
     <div class="flex-container">
@@ -309,10 +316,10 @@ input, select, textarea { text-align: right; }
 
       
     
-      <div >
-        <p><span>رقم القضية :</span></p>
-        <input type="text" class="caseNumber" readonly>
-      </div>
+    <div style="grid-column: span 2;">
+  <p><span>رقم القضية :</span></p>
+  <input type="text" class="caseNumber" readonly>
+</div>
       <div>
         <p><span>رقم الهاتف :</span></p>
         <input type="text" id="selfPhone" maxlength="11">
@@ -420,7 +427,8 @@ document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
 document.querySelectorAll(".selfName").forEach(el => el.value = selfName);
 document.querySelectorAll(".nationalId").forEach(el => el.value = nationalId);
 
-const applicantType = document.getElementById("applicantType");
+const agentNameTop = document.getElementById("agentNameTop");
+
 applicantType.addEventListener("change", function() {
   const val = this.value;
 
@@ -428,14 +436,17 @@ applicantType.addEventListener("change", function() {
   document.getElementById("agentFields").classList.add("hidden");
   document.getElementById("selfNote").classList.add("hidden");
   document.getElementById("agentNote").classList.add("hidden");
+  agentNameTop.classList.add("hidden");
 
   if(val === "self"){
     document.getElementById("selfFields").classList.remove("hidden");
     document.getElementById("selfNote").classList.remove("hidden");
   }
+
   if(val === "agent"){
     document.getElementById("agentFields").classList.remove("hidden");
     document.getElementById("agentNote").classList.remove("hidden");
+    agentNameTop.classList.remove("hidden");
   }
 });
 
@@ -481,6 +492,25 @@ document.getElementById("downloadPdf").addEventListener("click", function(){
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   }).from(element).save();
 });
+ function onlyNumbers(input){
+  input.addEventListener("input", function(){
+    this.value = this.value.replace(/[^0-9]/g, "");
+  });
+}
+
+ function onlyArabic(input){
+  input.addEventListener("input", function(){
+    this.value = this.value.replace(/[^\u0621-\u064A\s]/g, "");
+  });
+}
+ // ربط الحقول
+onlyNumbers(document.getElementById("registryNumber"));
+onlyNumbers(document.getElementById("agentID"));
+onlyNumbers(document.getElementById("powerNumber"));
+onlyNumbers(document.getElementById("powerYear"));
+onlyNumbers(document.getElementById("agentPhone"));
+
+onlyArabic(document.getElementById("powerLetter"));
 </script>
 </body>
 </html>
