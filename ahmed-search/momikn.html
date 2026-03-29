@@ -459,39 +459,50 @@ applicantType.addEventListener("change", function() {
 document.getElementById("currentDate").textContent = new Date().toLocaleDateString('ar-EG');
 
 // تحميل PDF
-document.addEventListener("DOMContentLoaded", function() {
+ // تحميل PDF
   document.getElementById("downloadPdf").addEventListener("click", function(){
-
     const val = document.getElementById("applicantType").value;
+    let valid = true;
+    let msg = "";
 
     if(val === "self"){
       const phone = document.getElementById("selfPhone").value.trim();
-      if(phone.length !== 11 || isNaN(phone)){
-        alert("رقم الهاتف يجب أن يحتوي على 11 رقم");
-        return;
-      }
-    }
-
-    if(val === "agent"){
+      if(phone.length !== 11 || isNaN(phone)) { valid = false; msg = "رقم الهاتف يجب أن يحتوي على 11 رقم"; alert(msg); return; }
+    } else if(val === "agent"){
+      const agentName = document.getElementById("agentName").value.trim();
+      const registryNumber = document.getElementById("registryNumber").value.trim();
+      const registryType = document.getElementById("registryType").value;
+      const agentID = document.getElementById("agentID").value.trim();
+      const agency = document.getElementById("agency").value.trim();
+      const powerNumber = document.getElementById("powerNumber").value.trim();
+      const powerLetter = document.getElementById("powerLetter").value.trim();
+      const powerYear = document.getElementById("powerYear").value.trim();
       const agentPhone = document.getElementById("agentPhone").value.trim();
-      if(agentPhone.length !== 11 || isNaN(agentPhone)){
-        alert("رقم الهاتف للوكيل يجب أن يحتوي على 11 رقم");
-        return;
-      }
+
+      // تحقق من البيانات
+      if(agentName.split(/\s+/).length < 4){ alert("اسم المحامي يجب أن يكون رباعي"); return; }
+      if(registryNumber.length === 0 || isNaN(registryNumber)) { alert("رقم القيد يجب أن يكون رقما"); return; }
+      if(registryType === "") { alert("اختر نوع القيد"); return; }
+      if(agentID.length !== 14 || isNaN(agentID)) { alert("الرقم القومي للمحامي يجب أن يحتوي على 14 رقم"); return; }
+      if(!agency) { alert("ادخل جهة إصدار التوكيل"); return; }
+      if(!powerNumber || isNaN(powerNumber)) { alert("رقم التوكيل يجب أن يكون رقم"); return; }
+      if(!powerLetter.match(/^[\u0621-\u064A]+$/)) { alert("حرف التوكيل يجب أن يكون حروف عربية فقط"); return; }
+      if(!powerYear || isNaN(powerYear)) { alert("سنة التوكيل يجب أن تكون رقم"); return; }
+      if(agentPhone.length !== 11 || isNaN(agentPhone)) { alert("رقم الهاتف للمحامي يجب أن يحتوي على 11 رقم"); return; }
+    } else {
+      alert("اختر صفة مقدم الطلب"); return;
     }
 
-   
-
-  const element = document.getElementById("mimkenForm");
-  html2pdf().set({
-    margin: [10,10,10,10],
-    filename: 'نموذج_مميكن.pdf',
-    image: { type: 'jpeg', quality: 1 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(element).save();
-});
-window.onload = function(){
+    // طباعة PDF
+    const element = document.getElementById("mimkenForm");
+    html2pdf().set({
+      margin: [10,10,10,10],
+      filename: 'نموذج_مميكن.pdf',
+      image: { type: 'jpeg', quality: 1 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(element).save();
+   });
 
   function onlyNumbers(input){
     if(!input) return;
