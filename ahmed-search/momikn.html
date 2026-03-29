@@ -274,6 +274,14 @@ input, select, textarea { text-align: right; }
 .full-width {
   grid-column: 1 / -1;
 }
+ .hide-in-pdf {
+  display: block; /* الوضع الطبيعي */
+}
+
+/* 👇 لما نفعل وضع PDF */
+.pdf-mode .hide-in-pdf {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -416,8 +424,18 @@ input, select, textarea { text-align: right; }
 </div>
 
 <!-- 👇 زرار التحميل -->
-<button id="downloadPdf">تحميل النموذج كـ PDF</button>
- 
+<!-- <button id="downloadPdf">تحميل النموذج كـ PDF</button> -->
+ <p id="selfNote" class="note hide-in-pdf">
+  ملحوظة...
+</p>
+
+<p id="agentNote" class="note hide-in-pdf">
+  ملحوظة...
+</p>
+
+<button id="downloadPdf" class="hide-in-pdf">
+  تحميل النموذج كـ PDF
+</button>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -459,6 +477,7 @@ document.getElementById("currentDate").textContent = new Date().toLocaleDateStri
 
 // تحميل PDF
  document.getElementById("downloadPdf").addEventListener("click", function(){
+  document.body.classList.add("pdf-mode");
   const val = applicantType.value; 
   if(val === "self"){ 
    const phone = document.getElementById("selfPhone").value.trim();
@@ -504,13 +523,15 @@ const options = {
   }
 };
 
-html2pdf().set(options).from(element).save();});
-//   // function onlyNumbers(input){
-  //   if(!input) return;
-  //   input.addEventListener("input", function(){
-  //     this.value = this.value.replace(/[^0-9]/g, "");
-  //   });
-  // }
+// html2pdf().set(options).from(element).save();});
+ html2pdf().from(element).save().then(() => {
+
+    // 👇 رجوع الوضع الطبيعي
+    document.body.classList.remove("pdf-mode");
+
+  });
+
+});
 function onlyNumbers(input) {
   if (!input) return;
   input.addEventListener("input", function () {
