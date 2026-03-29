@@ -300,7 +300,7 @@ input, select, textarea { text-align: right; }
     <div class="flex-container">
       <div>
         <p><span>اسم مقدم الطلب:</span></p>
-        <input type="text" id="selfName" readonly>
+        <input type="text" class="selfName" readonly>
       </div>
       <div>
         <p><span>الرقم القومي :</span></p>
@@ -377,7 +377,7 @@ input, select, textarea { text-align: right; }
 
 <div>
         <p><span>اسم الموكل :</span></p>
-        <input type="text" id="clientName">
+        <input type="text" class="selfName">
       </div>
      
       <div class="single">
@@ -409,13 +409,11 @@ const selfName = params.get("selfName") || "";
 const caseNumber = params.get("caseNumber") || "";
 const number = params.get("number") || "";
 const nationalId = params.get("nationalId") || "";
- const clientName = params.get("clientName") || "";
 
-document.getElementById("selfName").value = selfName;
 document.getElementById("number").value = number;
 document.getElementById("nationalId").value = nationalId;
- document.getElementById("clientName").value = clientName;
 document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
+document.querySelectorAll(".selfName").forEach(el => el.value = selfName);
 
 const applicantType = document.getElementById("applicantType");
 applicantType.addEventListener("change", function() {
