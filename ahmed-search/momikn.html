@@ -59,47 +59,56 @@
 </div>
 
   <div id="agentFields" class="hidden">
-    <p><span>اسم المحامى رباعى :</span></p>
-    <input type="text" id="agentName">
+
+  <p><span>اسم الوكيل :</span></p>
+  <input type="text" id="agentName" >
+
+ 
+
+ 
+  
+
+  <p><span>رقم القضية :</span></p>
+  <input type="text" class="caseNumber" readonly>
+
+ 
+
+  <p><span>رقم القيد :</span></p>
+  <input type="text" id="registryNumber" maxlength="7">
+
+  <p><span>نوع القيد :</span></p>
+  <select id="registryType">
+    <option value="">اختر</option>
+    <option>إبتدائي</option>
+    <option>استئناف</option>
+    <option>نقض</option>
+    <option>عام</option>
+  </select>
+
+  <p><span>الرقم القومي</span></p>
+  <input type="text" id="agentID" maxlength="14">
+
+ 
+
+  <p><span>رقم التوكيل</span></p>
+  <input type="text" id="powerNumber" maxlength="5">
+
+  <p><span>حرف التوكيل</span></p>
+  <input type="text" id="powerLetter" maxlength="2">
+
+  <p><span>سنة التوكيل</span></p>
+  <input type="text" id="powerYear" maxlength="4">
     
-    <p><span>وكيلا عن :</span></p>
-    <input type="text" id="agentFor" >
+ <p><span>جهة إصدار التوكيل</span></p>
+  <input type="text" id="agency">
     
-    <p><span>رقم القضية :</span></p>
-    <input type="text" class="caseNumber" readonly>
+ <p><span>اسم الموكل :</span></p>
+  <input type="text" id="clientName">
     
-    <p><span>الرقم القومى :</span></p>
-    <input type="text" id="personID" >
-    
-    <p><span>رقم القيد :</span></p>
-    <input type="text" id="registryNumber" maxlength="7">
-    
-    <p><span>نوع القيد :</span></p>
-    <select id="registryType">
-      <option value="">اختر</option>
-      <option>إبتدائي</option>
-      <option>استئناف</option>
-      <option>نقض</option>
-      <option>عام</option>
-    </select>
-    
-    <p> : الرقم القومي للمحامي (أقصى 14 رقم) </p>
-    <input type="text" id="agentID" maxlength="14">
-    
-    <p>:جهة إصدار التوكيل</p>
-    <input type="text" id="agency">
-    
-    <p>:رقم التوكيل</p>
-    <input type="text" id="powerNumber">
-    
-    <p>:حرف التوكيل</p>
-    <input type="text" id="powerLetter">
-    
-    <p>:سنة التوكيل</p>
-    <input type="text" id="powerYear">
-    
-    <p>:رقم الهاتف للمحامي (11 رقم)</p>
-    <input type="text" id="agentPhone" maxlength="11">
+  <p><span>رقم الهاتف للوكيل (11 رقم)</span></p>
+  <input type="text" id="agentPhone" maxlength="11">
+
+</div>
 
     <p class="note"> ملحوظة : يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي </p>
   </div>
