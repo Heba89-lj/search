@@ -342,7 +342,7 @@ input, select, textarea { text-align: right; }
       </div>
     </div>
 
-    <p id="selfNote" class="note ">
+    <p id="selfNote" class="note hide-in-pdf ">
       ملحوظة: يجب إرفاق صورة من بطاقة الرقم القومي و التأكد من أن الهاتف مسجل باسم صاحب الشأن
     </p>
   </div>
@@ -407,7 +407,7 @@ input, select, textarea { text-align: right; }
       </div>
     </div>
 
-    <p id="agentNote" class="note">
+    <p id="agentNote" class="note hide-in-pdf">
       ملحوظة: يجب إرفاق صورة التوكيل والكارنيه والتأكد من أن الهاتف مسجل باسم المحامي
     </p>
   </div>
@@ -425,13 +425,7 @@ input, select, textarea { text-align: right; }
 
 <!-- 👇 زرار التحميل -->
 <!-- <button id="downloadPdf">تحميل النموذج كـ PDF</button> -->
- <p id="selfNote" class="note hide-in-pdf">
-  ملحوظة...
-</p>
 
-<p id="agentNote" class="note hide-in-pdf">
-  ملحوظة...
-</p>
 
 <button id="downloadPdf" class="hide-in-pdf">
   تحميل النموذج كـ PDF
@@ -477,7 +471,6 @@ document.getElementById("currentDate").textContent = new Date().toLocaleDateStri
 
 // تحميل PDF
  document.getElementById("downloadPdf").addEventListener("click", function(){
-  document.body.classList.add("pdf-mode");
   const val = applicantType.value; 
   if(val === "self"){ 
    const phone = document.getElementById("selfPhone").value.trim();
@@ -503,6 +496,8 @@ const agentName = document.getElementById("agentNameTopInput").value.trim();
    if(!powerYear || isNaN(powerYear)) { alert("سنة التوكيل يجب أن تكون رقم"); return; } 
    if(agentPhone.length !== 11 || isNaN(agentPhone)) { alert("رقم الهاتف للوكيل يجب أن يحتوي على 11 رقم"); return; }
   } else { alert("اختر صفة مقدم الطلب"); return; } 
+    document.body.classList.add("pdf-mode");
+
 //   const element = document.getElementById("mimkenForm");
 // html2pdf().set({ margin: [10,10,10,10], filename: 'نموذج_مميكن.pdf', image: { type: 'jpeg', quality: 1 }, html2canvas: { scale: 2, useCORS: true }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' } }).from(element).save(); });
 const element = document.getElementById("mimkenForm");
@@ -524,11 +519,8 @@ const options = {
 };
 
 // html2pdf().set(options).from(element).save();});
- html2pdf().from(element).save().then(() => {
-
-    // 👇 رجوع الوضع الطبيعي
+ html2pdf().set(options).from(element).save().then(() => {
     document.body.classList.remove("pdf-mode");
-
   });
 
 });
