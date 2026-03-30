@@ -292,14 +292,14 @@ input, select, textarea { text-align: right; }
  <!-- بيانات قبل صفة مقدم الطلب -->
 <div class="flex-container">
 
-  <!-- <div>
+  <div>
     <p><span>رقم الفحص :</span></p> 
     <input type="number" id="number" readonly> 
-  </div> -->
- <div>
+  </div>
+ <!-- <div>
     <p><span>,والسنةرقم الفحص :</span></p> 
     <input type="number" id="mix" readonly> 
-  </div>
+  </div> -->
   <div>
     <p><span>رقم الطلب :</span></p>
     <input type="text" id="requestNumber" readonly> 
@@ -438,13 +438,13 @@ input, select, textarea { text-align: right; }
 const params = new URLSearchParams(window.location.search);
 const selfName = params.get("selfName") || "";
 const caseNumber = params.get("caseNumber") || "";
-// const number = params.get("number") || "";
- const mix = params.get("mix") || "";
+const number = params.get("number") || "";
+ // const mix = params.get("mix") || "";
 
 const nationalId = params.get("nationalId") || "";
-console.log("14", mix);
-// document.getElementById("number").value = number;
- document.getElementById("mix").value = mix;
+// console.log("14", mix);
+document.getElementById("number").value = number;
+ // document.getElementById("mix").value = mix;
 
 document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
 document.querySelectorAll(".selfName").forEach(el => el.value = selfName);
