@@ -263,7 +263,7 @@ const nationalId = params.get("nationalId") || "";
 // document.getElementById("number").value = number;
  document.getElementById("mix").value = mix;
 
-document.querySelectorAll(".caseNumber").forEach(el => el.value = caseNumber);
+document.querySelectorAll(".caseNumber").forEach(el => el.value = "\u202B" + caseNumber);
 document.querySelectorAll(".selfName").forEach(el => el.value = selfName);
 document.querySelectorAll(".nationalId").forEach(el => el.value = nationalId);
 
