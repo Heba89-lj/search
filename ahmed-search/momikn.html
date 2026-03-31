@@ -78,6 +78,10 @@ input, select, textarea { text-align: right; }
   overflow: auto;
   background:#eee;
 }
+  .caseNumber {
+  direction: rtl;
+  unicode-bidi: plaintext;
+}
 </style>
 </head>
 <body>
@@ -119,7 +123,7 @@ input, select, textarea { text-align: right; }
   <!-- 👇 رقم القضية هنا بقى -->
   <div class="full-width">
     <p><span>رقم القضية :</span></p>
-    <input type="text" class="caseNumber" readonly>
+    <input type="text" class="caseNumber" readonly dir="rtl">
   </div>
 
 </div>
