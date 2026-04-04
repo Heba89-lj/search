@@ -81,7 +81,7 @@ setTimeout(() => {
 
 </body>
 </html> -->
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -129,7 +129,68 @@ body {
 
 <body>
 
-<!-- اللينكين جنب بعض آخر الشاشة -->
+
+<div id="main">
+  <a href="page1.html">
+    <img src="images/background.png" alt="شعار النيابة" class="logo">
+  </a>
+
+  <a href="home.html">
+    <img src="images/background.png" alt="شعار النيابة" class="logo">
+  </a>
+</div>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>اختيار النيابة</title>
+
+<style>
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  justify-content: center;    /* توسيط أفقي */
+  align-items: flex-end;      /* يجعل المحتوى في آخر الشاشة */
+  background-image: url('./images/background2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;        /* هذا اللي يخليهم جنب بعض */
+  justify-content: center;    /* يوزعهم أفقي في النص */
+  gap: 20px;                  /* المسافة بينهم */
+  padding-bottom: 40px;       /* يبعدهم عن أسفل الشاشة */
+}
+
+.logo {
+  width: 120px;
+  cursor: pointer;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% {opacity: 1;}
+  50% {opacity: 0.3;}
+  100% {opacity: 1;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- اللينكات جنب بعض آخر الشاشة -->
 <div id="main">
   <a href="page1.html">
     <img src="images/background.png" alt="شعار النيابة" class="logo">
