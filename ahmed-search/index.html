@@ -159,7 +159,7 @@ html, body {
 body {
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* آخر الشاشة من تحت */
+  align-items: flex-end; /* آخر الصفحة */
   background-image: url('./images/background2.jpg');
   background-size: cover;
   background-position: center;
@@ -168,13 +168,13 @@ body {
 
 #main {
   display: flex;
-  justify-content: space-between; /* يوزع الزراير والمسافة بينهم */
-  width: 80%;                     /* عرض الحاوية */
+  justify-content: space-between; /* يوزع الزرار والمسافات بينهم متساوية */
+  width: 90%;                     /* عرض الحاوية */
   padding-bottom: 40px;
 }
 
 button {
-  width: 30%;                     /* كل زرار ياخد 30% من الحاوية */
+  width: 25%;                     /* كل زرار 25% من الصفحة */
   padding: 15px 0;
   font-size: 18px;
   border: none;
@@ -192,11 +192,12 @@ button:hover {
 /* responsive للموبايل */
 @media (max-width: 600px) {
   #main {
-    justify-content: center;  /* يقلل المسافة بينهم */
-    gap: 10px;               /* يضيف مسافة بسيطة بدل space-between */
+    flex-direction: column;  /* على الموبايل تحت بعض */
+    gap: 15px;
+    padding-bottom: 20px;
   }
   button {
-    width: 45%;              /* كل زرار ياخد نص تقريبًا */
+    width: 80%;              /* كل زرار ياخد عرض أكبر على الموبايل */
   }
 }
 </style>
