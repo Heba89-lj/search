@@ -158,8 +158,8 @@ html, body {
 
 body {
   display: flex;
-  justify-content: center;    /* توسيط أفقي */
-  align-items: flex-end;      /* يجعل المحتوى في آخر الشاشة */
+  justify-content: center;
+  align-items: flex-end; /* آخر الشاشة من تحت */
   background-image: url('./images/background2.jpg');
   background-size: cover;
   background-position: center;
@@ -168,37 +168,49 @@ body {
 
 #main {
   display: flex;
-  flex-direction: row;        /* هذا اللي يخليهم جنب بعض */
-  justify-content: center;    /* يوزعهم أفقي في النص */
-  gap: 20px;                  /* المسافة بينهم */
-  padding-bottom: 40px;       /* يبعدهم عن أسفل الشاشة */
+  flex-direction: row;  /* جنب بعض */
+  justify-content: center;
+  gap: 15px;           /* المسافة بينهم */
+  padding-bottom: 40px;
+  width: 100%;
+  max-width: 800px;
 }
 
-.logo {
-  width: 120px;
+button {
+  width: 45%;          /* ياخد حوالي نص الشاشة مع ترك gap */
+  padding: 15px 0;
+  font-size: 18px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  animation: blink 1s infinite;
+  background-color: rgba(0,0,0,0.6);
+  color: white;
+  transition: 0.3s;
 }
 
-@keyframes blink {
-  0% {opacity: 1;}
-  50% {opacity: 0.3;}
-  100% {opacity: 1;}
+button:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* على الموبايل */
+@media (max-width: 600px) {
+  #main {
+    flex-direction: row;   /* يحتفظوا جنب بعض */
+    gap: 10px;             /* أقل مسافة بينهم */
+    padding-bottom: 20px;
+  }
+  button {
+    width: 45%;            /* يبقى أقل من نص الشاشة */
+  }
 }
 </style>
 </head>
 
 <body>
 
-<!-- اللينكات جنب بعض آخر الشاشة -->
 <div id="main">
-  <a href="page1.html">
-    <img src="images/background.png" alt="شعار النيابة" class="logo">
-  </a>
-
-  <a href="home.html">
-    <img src="images/background.png" alt="شعار النيابة" class="logo">
-  </a>
+  <button onclick="window.location.href='page1.html'">النيابة 1</button>
+  <button onclick="window.location.href='home.html'">النيابة 2</button>
 </div>
 
 </body>
