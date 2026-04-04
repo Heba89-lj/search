@@ -168,16 +168,13 @@ body {
 
 #main {
   display: flex;
-  flex-direction: row;  /* جنب بعض */
-  justify-content: center;
-  gap: 15px;           /* المسافة بينهم */
+  justify-content: space-between; /* يوزع الزراير والمسافة بينهم */
+  width: 80%;                     /* عرض الحاوية */
   padding-bottom: 40px;
-  width: 100%;
-  max-width: 800px;
 }
 
 button {
-  width: 45%;          /* ياخد حوالي نص الشاشة مع ترك gap */
+  width: 30%;                     /* كل زرار ياخد 30% من الحاوية */
   padding: 15px 0;
   font-size: 18px;
   border: none;
@@ -192,15 +189,14 @@ button:hover {
   background-color: rgba(0,0,0,0.8);
 }
 
-/* على الموبايل */
+/* responsive للموبايل */
 @media (max-width: 600px) {
   #main {
-    flex-direction: row;   /* يحتفظوا جنب بعض */
-    gap: 10px;             /* أقل مسافة بينهم */
-    padding-bottom: 20px;
+    justify-content: center;  /* يقلل المسافة بينهم */
+    gap: 10px;               /* يضيف مسافة بسيطة بدل space-between */
   }
   button {
-    width: 45%;            /* يبقى أقل من نص الشاشة */
+    width: 45%;              /* كل زرار ياخد نص تقريبًا */
   }
 }
 </style>
