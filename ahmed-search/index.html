@@ -35,9 +35,18 @@ body {
 
 /* الصفحة الرئيسية */
 #main {
-  display: none;
-  margin-top: 100px;
+  /* display: none;
+  margin-top: 100px; */
+  
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* ينزلهم تحت */
+  align-items: center;
+  gap: 20px;
+  padding: 40px 20px; /* مسافة من تحت */
 }
+
 
 /* اللوجوهات */
 .logo {
