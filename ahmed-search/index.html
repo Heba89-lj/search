@@ -1,4 +1,6 @@
 
+
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -16,7 +18,7 @@ html, body {
 body {
   display: flex;
   justify-content: center;
-  align-items: flex-end; /* آخر الصفحة */
+  align-items: flex-end; /* آخر الشاشة */
   background-image: url('./images/background2.jpg');
   background-size: cover;
   background-position: center;
@@ -25,36 +27,34 @@ body {
 
 #main {
   display: flex;
-  justify-content: space-around; /* يوزع الزرار والمسافات بينهم متساوية */
+  justify-content: space-between; /* المسافات متساوية */
   width: 90%;                     /* عرض الحاوية */
-  padding-bottom: 60px;
+  padding-bottom: 40px;
 }
 
-button {
-  width: 25%;                     /* كل زرار 25% من الصفحة */
-  padding: 15px 0;
-  font-size: 38px;
-  border: none;
-  border-radius: 8px;
+/* اللوجوهات */
+.logo-link img {
+  width: 25%;                  /* كل صورة 25% من العرض */
+  max-width: 150px;            /* أقصى عرض (اختياري) */
   cursor: pointer;
-  background-color: rgba(0,0,0,0.6);
-  color: white;
-  transition: 0.3s;
+  border-radius: 8px;          /* ممكن تحطي دائري لو عايزة */
+  transition: transform 0.3s;
 }
 
-button:hover {
-  background-color: rgba(0,0,0,0.8);
+.logo-link img:hover {
+  transform: scale(1.05);      /* تكبير عند المرور */
 }
 
 /* responsive للموبايل */
 @media (max-width: 600px) {
   #main {
-    flex-direction: column;  /* على الموبايل تحت بعض */
+    flex-direction: column;     /* تتحول تحت بعض */
     gap: 15px;
     padding-bottom: 20px;
+    align-items: center;
   }
-  button {
-    width: 80%;              /* كل زرار ياخد عرض أكبر على الموبايل */
+  .logo-link img {
+    width: 60%;                 /* عرض أكبر على الموبايل */
   }
 }
 </style>
@@ -63,8 +63,12 @@ button:hover {
 <body>
 
 <div id="main">
-  <button onclick="window.location.href='page1.html'">نيابة الشئون الاقتصادية </button>
-  <button onclick="window.location.href='home.html'">نيابة الشئون الاقتصادية وغسل الاموال بالاسكندرية</button>
+  <a href="page1.html" class="logo-link">
+    <img src="./images/logo1.png" alt="النيابة 1">
+  </a>
+  <a href="home.html" class="logo-link">
+    <img src="./images/logo2.png" alt="النيابة 2">
+  </a>
 </div>
 
 </body>
