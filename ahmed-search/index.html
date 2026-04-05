@@ -101,5 +101,20 @@ body {
 </a>
 </div>
 <div id="visitorCount">عدد الزوار: ...</div>
+  <script>
+async function updateCounter() {
+  try {
+    const res = await fetch("/api/incrementCounter");
+    const data = await res.json();
+    document.getElementById("visitorCount").innerText =
+      "عدد الزوار: " + data.count;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// نحدث العداد لما الصفحة تفتح
+updateCounter();
+</script>
 </body>
 </html>
