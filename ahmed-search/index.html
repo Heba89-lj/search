@@ -60,8 +60,9 @@ body {
   text-align: center;
   backdrop-filter: blur(6px);
   cursor: pointer;
+  transition: none; /* يمنع أي حركة */
 
-  animation: pulse 2s infinite; /* 👈 النبض */
+  /* animation: pulse 2s infinite; /* 👈 النبض */ */
 }
 </style>
 </head>
@@ -69,21 +70,23 @@ body {
 <body>
 
 <div id="main">
-<a href="home.html" class="logo-link">
+
+  
+<a href="search.html" class="logo-link">
+  <div class="text-box no-anim">
+    <div class="line1">طلبات الفحص المتنوع</div>
+    <div class="line2">نيابة الشئون الاقتصادية وغسل الأموال</div>
+    <div class="line3">بالإسكندرية</div>
+  </div>
+</a>
+  
+ <a href="https://script.google.com/macros/s/AKfycbykortx0qUeNDfxXfgGMaQfC2mMNUEVsef9AXwY7yWB6xSEty7H_xtV6o9UCSI_HRus/exec" class="logo-link">
   <div class="text-box">
     <div class="line1">طلبات الرد</div>
     <div class="line2">نيابة الشئون الاقتصادية وغسل الأموال</div>
     <div class="line3">بمكتب النائب العام</div>
   </div>
 </a>
-  
-  <a href="https://script.google.com/macros/s/AKfycbykortx0qUeNDfxXfgGMaQfC2mMNUEVsef9AXwY7yWB6xSEty7H_xtV6o9UCSI_HRus/exec" class="logo-link">
-    طلبات الرد
-    نيابة الشئون الاقتصادية وعسل الاموال
-    بمكنب النائب العام
-  <a href="home.html" class="logo-link">
-    <img src="./images/download (1).jpg" alt="النيابة 2">
-  </a>
 </div>
 
 </body>
