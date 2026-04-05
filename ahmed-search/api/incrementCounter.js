@@ -2,9 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, doc, updateDoc, increment, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBELA_k2RX9erkknYH0TGK1qpwKr7TqGiU",
-  authDomain:"ppo-alex.firebaseapp.com",
-  projectId: "ppo-alex",
+  apiKey: "",
+  authDomain:"",
+  projectId: "",
 };
 
 const app = initializeApp(firebaseConfig);
