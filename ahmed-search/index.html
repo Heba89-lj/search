@@ -75,23 +75,20 @@ body {
   cursor: pointer;
   transition: none; /* يمنع أي حركة */
   }
-    /* .site-footer {
-  background-color: #0d6efd;
+
+#visitorContainer {
+  position: fixed; /* لو عايزة يفضل ظاهر في مكان ثابت */
+  bottom: 20px;    /* من أسفل الشاشة */
+  right: 20px;     /* من اليمين */
+  background-color: rgba(0, 0, 0, 0.6); /* خلفية نصف شفافة */
   color: white;
-  text-align: center;
-  padding: 20px 0;
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  font-family: "Cairo", sans-serif;
-} */
-
-/* .site-footer p {
-  margin: 0;
-  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 18px;
   font-weight: bold;
-} */
-
+  font-family: "Cairo", sans-serif;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 </style>
 </head>
 
@@ -116,11 +113,9 @@ body {
   </div>
 </a>
 </div>
-<footer class="site-footer">
-  <div class="footer-content">
-    <p id="visitorCount">عدد الزوار: ...</p>
-  </div>
-</footer>
+ <div id="visitorContainer">
+  عدد الزوار: <span id="visitorCount">...</span>
+</div>
   <script>
 async function updateCounter() {
   try {
