@@ -78,10 +78,12 @@ body {
   }
 
 #visitorContainer {
-  position: fixed; /* لو عايزة يفضل ظاهر في مكان ثابت */
-  bottom: 20px;    /* من أسفل الشاشة */
-  right: 20px;     /* من اليمين */
-  background-color: rgba(0, 0, 0, 0.6); /* خلفية نصف شفافة */
+  position: fixed;
+  bottom: 20px;       /* من تحت */
+  left: 50%;          /* في نص العرض */
+  transform: translateX(-50%); /* يظبطه في النص بالظبط */
+  
+  background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 10px 20px;
   border-radius: 10px;
@@ -123,7 +125,7 @@ async function updateCounter() {
     const res = await fetch("/api/incrementCounter");
     const data = await res.json();
     document.getElementById("visitorCount").innerText =
-      "عدد متلقى الخدمة: " + data.COUNT;
+      "عدد متلقى الخدمة " + data.COUNT;
   } catch (err) {
     console.error(err);
   }
