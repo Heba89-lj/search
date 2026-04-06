@@ -12,20 +12,20 @@ const db = getFirestore(app);
 
 export default async function handler(req, res) {
   try {
-    const counterRef = doc(db, "counter", "visits");
+    const counterRef = doc(db, "COUNTER", "VISITS");
 
    const snap = await getDoc(counterRef);
 
 if (!snap.exists()) {
-  await setDoc(counterRef, { count: 1 });
+  await setDoc(counterRef, { COUNT: 1 });
 } else {
-  await setDoc(counterRef, { count: increment(1) }, { merge: true });
+  await setDoc(counterRef, { COUNT: increment(1) }, { merge: true });
 }
 
 const updatedSnap = await getDoc(counterRef);
-res.status(200).json({ count: updatedSnap.data().count });
+res.status(200).json({ count: updatedSnap.data().COUNT});
     const snap = await getDoc(counterRef);
-    res.status(200).json({ count: snap.data().count });
+    res.status(200).json({ count: snap.data().COUNT });
   } catch (err) {
     console.error("Firebase Error:", err);
     res.status(500).json({ error: err.message });
