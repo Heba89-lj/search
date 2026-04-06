@@ -1,6 +1,16 @@
 {
   "name": "exam-check",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "firebase": "^12.11.0"
+  }
 }
-
