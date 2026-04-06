@@ -75,6 +75,22 @@ body {
   cursor: pointer;
   transition: none; /* يمنع أي حركة */
 
+    .site-footer {
+  background-color: #0d6efd; /* لون أزرق جذاب */
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+  position: relative; /* لو عايزة يكون ثابت ممكن تغيري */
+  bottom: 0;
+  width: 100%;
+  font-family: "Cairo", sans-serif;
+}
+
+.site-footer p {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
 }
 </style>
 </head>
@@ -100,7 +116,11 @@ body {
   </div>
 </a>
 </div>
-<div id="visitorCount">عدد الزوار: ...</div>
+<footer class="site-footer">
+  <div class="footer-content">
+    <p id="visitorCount">عدد الزوار: ...</p>
+  </div>
+</footer>
   <script>
 async function updateCounter() {
   try {
