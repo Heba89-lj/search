@@ -14,18 +14,23 @@ export default async function handler(req, res) {
   try {
     const counterRef = doc(db, "COUNTER", "VISITS");
 
-   const snap = await getDoc(counterRef);
-
-if (!snap.exists()) {
-  await setDoc(counterRef, { COUNT: 1 });
-} else {
-  await setDoc(counterRef, { COUNT: increment(1) }, { merge: true });
-}
-
-const updatedSnap = await getDoc(counterRef);
-res.status(200).json({ count: updatedSnap.data().COUNT});
+    // نجيب الداتا الحالية
     const snap = await getDoc(counterRef);
-    res.status(200).json({ count: snap.data().COUNT });
+
+    if (!snap.exists()) {
+      // لو المستند مش موجود نعمله بصفر
+      await setDoc(counterRef, { COUNT: 1 });
+    } else {
+      // لو موجود، نزود العداد
+      await setDoc(counterRef, { COUNT: increment(1) }, { merge: true });
+    }
+
+    // نجيب البيانات بعد التحديث
+    const updatedSnap = await getDoc(counterRef);
+
+    // نرجع العدد الحالي
+    res.status(200).json({ count: updatedSnap.data().COUNT });
+
   } catch (err) {
     console.error("Firebase Error:", err);
     res.status(500).json({ error: err.message });
