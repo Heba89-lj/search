@@ -14,9 +14,16 @@ export default async function handler(req, res) {
   try {
     const counterRef = doc(db, "counter", "visits");
 
-    // التأكد من وجود المستند أو إنشاءه
-    await setDoc(counterRef, { count: increment(1) }, { merge: true });
+   const snap = await getDoc(counterRef);
 
+if (!snap.exists()) {
+  await setDoc(counterRef, { count: 1 });
+} else {
+  await setDoc(counterRef, { count: increment(1) }, { merge: true });
+}
+
+const updatedSnap = await getDoc(counterRef);
+res.status(200).json({ count: updatedSnap.data().count });
     const snap = await getDoc(counterRef);
     res.status(200).json({ count: snap.data().count });
   } catch (err) {
