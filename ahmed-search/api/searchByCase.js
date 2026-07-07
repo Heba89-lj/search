@@ -30,22 +30,39 @@ export default async function handler(req, res) {
 
     const rows = data.values?.slice(1) || [];
 
-    const match = rows.find((r) => r[3]?.toString().trim() === caseNumber.toString().trim());
+    // const match = rows.find((r) => r[3]?.toString().trim() === caseNumber.toString().trim());
+    const matches = rows.filter((r) =>
+  r[3]?.toString().trim().includes(caseNumber.toString().trim())
+);
 
-    if (match) {
-      return res.status(200).json({
-        success: true,
-        result: {
-          number: match[0],
-          year: match[1],
-          caseNumber: match[3],
-          applicant: match[4],
-          status: match[5],
-          visa: match[6],
-          notes: match[7],
-        },
-      });
-    } else {
+    // if (match) {
+    //   return res.status(200).json({
+    //     success: true,
+    //     result: {
+    //       number: match[0],
+    //       year: match[1],
+    //       caseNumber: match[3],
+    //       applicant: match[4],
+    //       status: match[5],
+    //       visa: match[6],
+    //       notes: match[7],
+    //     },
+    //   });
+    // }
+    if (matches.length > 0) {
+  return res.status(200).json({
+    success: true,
+    results: matches.map(match => ({
+      number: match[0],
+      year: match[1],
+      caseNumber: match[3],
+      applicant: match[4],
+      status: match[5],
+      visa: match[6],
+      notes: match[7],
+    })),
+  });
+}else {
       return res.status(404).json({ success: false, message: "لم يتم العثور على بيانات لهذا الرقم" });
     }
   } catch (error) {
