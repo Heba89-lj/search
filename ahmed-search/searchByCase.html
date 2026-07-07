@@ -122,7 +122,8 @@ async function searchData() {
     const data = await res.json();
 
     if (data.success) {
-      const r = data.result;
+      // const r = data.result;
+      data.results
 
       resultDiv.innerHTML = `
         <table>
