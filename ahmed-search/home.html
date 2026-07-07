@@ -123,12 +123,94 @@
         </div>
       </div>
       <script>
-        const toggleChat=document.getElementById("toggleChat");
-        const chatBox=document.getElementById("chatBox");
-        const chatBody=document.getElementById("chatBody"); 
-        const chatInput=document.getElementById("chatInput");
-        toggleChat.onclick = () => { const isOpen = chatBox.classList.toggle("show"); if (isOpen) { // عند الفتح: تنظيف الشات وإضافة التحية chatBody.innerHTML = ""; addMessage("👋 السلام عليكم ورحمة الله وبركاته\nمع حضرتك المساعد الذكي للفحص المتنوع\nأخبار حضرتك يارب تكون بخير\nأنا موجود هنا لمساعدتك اتفضل.", "bot"); } else { // إضافة رسالة الختام const closingMsg = "👋 شكراً لاستخدامك المساعد الذكي، إلى اللقاء!"; addMessage(closingMsg, "bot"); // تمرير الشات لأسفل تلقائيًا لضمان ظهور الرسالة chatBody.scrollTop = chatBody.scrollHeight; // نترك الرسالة على الشاشة 10 ثواني قبل الإغلاق setTimeout(() => { // عمل FadeOut للشات chatBox.style.transition = "opacity 1s ease"; chatBox.style.opacity = "0"; // بعد انتهاء الـ FadeOut نغلق الشات ونعيد الإعدادات setTimeout(() => { chatBox.classList.remove("show"); chatBox.style.opacity = ""; // لإعادة الوضع الطبيعي عند الفتح القادم }, 1000); }, 10000); // مدة عرض رسالة الختام: 10 ثواني } }; function addMessage(text,type){ const div=document.createElement("div"); div.className=message ${type}; div.innerText=text; chatBody.appendChild(div); chatBody.scrollTop=chatBody.scrollHeight; } function typingBubble(){ const div=document.createElement("div"); div.className="message bot"; div.innerHTML=<div class="typing"> <span></span><span></span><span></span> </div>; chatBody.appendChild(div); chatBody.scrollTop=chatBody.scrollHeight; return div; } async function sendMessage(){ const text=chatInput.value.trim(); if(!text) return; addMessage(text,"user"); chatInput.value=""; const typing=typingBubble(); try{ const res=await fetch("/api/assistant",{ method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({question:text}) }); const data=await res.json(); typing.innerText=data.answer||"لا توجد إجابة حالياً"; }catch{ typing.innerText="❌ حدث خطأ في الاتصال"; } } chatInput.addEventListener("keydown",e=>{ if(e.key==="Enter") sendMessage(); });
-  </script>
+        // const toggleChat=document.getElementById("toggleChat");
+        // const chatBox=document.getElementById("chatBox");
+        // const chatBody=document.getElementById("chatBody"); 
+        // const chatInput=document.getElementById("chatInput");
+        // toggleChat.onclick = () => { const isOpen = chatBox.classList.toggle("show"); if (isOpen) { // عند الفتح: تنظيف الشات وإضافة التحية chatBody.innerHTML = ""; addMessage("👋 السلام عليكم ورحمة الله وبركاته\nمع حضرتك المساعد الذكي للفحص المتنوع\nأخبار حضرتك يارب تكون بخير\nأنا موجود هنا لمساعدتك اتفضل.", "bot"); } else { // إضافة رسالة الختام const closingMsg = "👋 شكراً لاستخدامك المساعد الذكي، إلى اللقاء!"; addMessage(closingMsg, "bot"); // تمرير الشات لأسفل تلقائيًا لضمان ظهور الرسالة chatBody.scrollTop = chatBody.scrollHeight; // نترك الرسالة على الشاشة 10 ثواني قبل الإغلاق setTimeout(() => { // عمل FadeOut للشات chatBox.style.transition = "opacity 1s ease"; chatBox.style.opacity = "0"; // بعد انتهاء الـ FadeOut نغلق الشات ونعيد الإعدادات setTimeout(() => { chatBox.classList.remove("show"); chatBox.style.opacity = ""; // لإعادة الوضع الطبيعي عند الفتح القادم }, 1000); }, 10000); // مدة عرض رسالة الختام: 10 ثواني } }; function addMessage(text,type){ const div=document.createElement("div"); div.className=message ${type}; div.innerText=text; chatBody.appendChild(div); chatBody.scrollTop=chatBody.scrollHeight; } function typingBubble(){ const div=document.createElement("div"); div.className="message bot"; div.innerHTML=<div class="typing"> <span></span><span></span><span></span> </div>; chatBody.appendChild(div); chatBody.scrollTop=chatBody.scrollHeight; return div; } async function sendMessage(){ const text=chatInput.value.trim(); if(!text) return; addMessage(text,"user"); chatInput.value=""; const typing=typingBubble(); try{ const res=await fetch("/api/assistant",{ method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({question:text}) }); const data=await res.json(); typing.innerText=data.answer||"لا توجد إجابة حالياً"; }catch{ typing.innerText="❌ حدث خطأ في الاتصال"; } } chatInput.addEventListener("keydown",e=>{ if(e.key==="Enter") sendMessage(); });
+ toggleChat.onclick = () => {
+    const isOpen = chatBox.classList.toggle("show");
+
+    if (isOpen) {
+        // عند الفتح: تنظيف الشات وإضافة التحية
+        chatBody.innerHTML = "";
+        addMessage(
+            "👋 السلام عليكم ورحمة الله وبركاته\nمع حضرتك المساعد الذكي للفحص المتنوع\nأخبار حضرتك يارب تكون بخير\nأنا موجود هنا لمساعدتك اتفضل.",
+            "bot"
+        );
+    } else {
+        // إضافة رسالة الختام
+        const closingMsg = "👋 شكراً لاستخدامك المساعد الذكي، إلى اللقاء!";
+        addMessage(closingMsg, "bot");
+
+        // تمرير الشات لأسفل تلقائيًا لضمان ظهور الرسالة
+        chatBody.scrollTop = chatBody.scrollHeight;
+
+        // نترك الرسالة على الشاشة 10 ثواني قبل الإغلاق
+        setTimeout(() => {
+            // عمل FadeOut للشات
+            chatBox.style.transition = "opacity 1s ease";
+            chatBox.style.opacity = "0";
+
+            // بعد انتهاء الـ FadeOut نغلق الشات ونعيد الإعدادات
+            setTimeout(() => {
+                chatBox.classList.remove("show");
+                chatBox.style.opacity = "";
+            }, 1000);
+        }, 10000);
+    }
+};
+
+function addMessage(text, type) {
+    const div = document.createElement("div");
+    div.className = `message ${type}`;
+    div.innerText = text;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function typingBubble() {
+    const div = document.createElement("div");
+    div.className = "message bot";
+    div.innerHTML = `
+        <div class="typing">
+            <span></span><span></span><span></span>
+        </div>
+    `;
+    chatBody.appendChild(div);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    return div;
+}
+
+async function sendMessage() {
+    const text = chatInput.value.trim();
+    if (!text) return;
+
+    addMessage(text, "user");
+    chatInput.value = "";
+
+    const typing = typingBubble();
+
+    try {
+        const res = await fetch("/api/assistant", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ question: text })
+        });
+
+        const data = await res.json();
+        typing.innerText = data.answer || "لا توجد إجابة حالياً";
+    } catch {
+        typing.innerText = "❌ حدث خطأ في الاتصال";
+    }
+}
+
+chatInput.addEventListener("keydown", e => {
+    if (e.key === "Enter") sendMessage();
+});
+      </script>
       <!-- ********************************************** -->
     </body>
 </html>
