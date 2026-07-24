@@ -43,7 +43,7 @@ export default async function handler(req, res) {
        results: matches.map(match => ({
           number: match[0],
           year: match[1],
-          applicant: match[4]
+          applicant: match[4],
       });
     }
 
