@@ -39,15 +39,10 @@ export default async function handler(req, res) {
     if (matches.length > 0) {
       return res.status(200).json({
         success: true,
-        results: matches.map(match => ({
-          number: match[0],
-          year: match[1],
-          caseNumber: match[3],
-          applicant: match[4],
-          status: match[5],
-          visa: match[6],
-          notes: match[7],
-        }))
+       results: matches.map(match => ({
+  number: match[0],
+  caseNumber: match[3]
+}))
       });
     }
 
