@@ -124,14 +124,19 @@ async function searchData() {
     if (data.success) {
 resultDiv.innerHTML = data.results.map(r => `
 <table>
+    <tr>
+    <th>اسم مقدم الطلب</th>
+    <td>${r.applicant || "-"}</td>
+  </tr>
   <tr>
     <th>رقم الفحص</th>
     <td>${r.number || "-"}</td>
   </tr>
   <tr>
-    <th>رقم القضية</th>
-    <td>${r.caseNumber || "-"}</td>
+    <th>السنة</th>
+    <td>${r.year || "-"}</td>
   </tr>
+
 </table>
 <br>
 `).join("");
