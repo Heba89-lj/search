@@ -44,6 +44,7 @@ export default async function handler(req, res) {
           number: match[0],
           year: match[1],
           applicant: match[4]
+     }))
       });
     }
 
