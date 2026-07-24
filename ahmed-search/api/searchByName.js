@@ -40,9 +40,9 @@ export default async function handler(req, res) {
       return res.status(200).json({
         success: true,
        results: matches.map(match => ({
-  number: match[0],
-  caseNumber: match[3]
-}))
+          number: match[0],
+          year: match[1],
+          applicant: match[4]
       });
     }
 
