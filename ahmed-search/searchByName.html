@@ -121,24 +121,26 @@ async function searchData() {
     const data = await res.json();
 
     if (data.success) {
-resultDiv.innerHTML = data.results.map(r => `
+resultDiv.innerHTML = `
 <table>
-    
-  <tr>
-    <th>رقم الفحص</th>
-    <td>${r.number || "-"}</td>
-  </tr>
-  <tr>
-    <th>السنة</th>
-    <td>${r.year || "-"}</td>
-  </tr>
-<tr>
-    <th>اسم مقدم الطلب</th>
-    <td>${r.applicant || "-"}</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>اسم مقدم الطلب</th>
+      <th>رقم الفحص</th>
+      <th>السنة</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${data.results.map(r => `
+      <tr>
+        <td>${r.applicant || "-"}</td>
+        <td>${r.number || "-"}</td>
+        <td>${r.year || "-"}</td>
+      </tr>
+    `).join("")}
+  </tbody>
 </table>
-<br>
-`).join("");
+`;
 
     } else {
       message.textContent = data.message || "لم يتم العثور على بيانات.";
