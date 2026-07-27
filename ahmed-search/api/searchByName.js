@@ -13,13 +13,26 @@ export default async function handler(req, res) {
     });
   }
 
-  const normalize = (str = "") =>
-    str
-      .toLowerCase()
-      .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
-      .replace(/\s+/g, " ")
-      .trim();
+  // const normalize = (str = "") =>
+  //   str
+  //     .toLowerCase()
+  //     .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+  //     .replace(/\s+/g, " ")
+  //     .trim();
 
+  const normalize = (str = "") =>
+  str
+    .toLowerCase()
+    .replace(/[٠-٩]/g, d => "٠١٢٣٤٥٦٧٨٩".indexOf(d))
+    .replace(/[أإآ]/g, "ا")
+    .replace(/ى/g, "ي")
+    .replace(/ة/g, "ه")
+    .replace(/ؤ/g, "و")
+    .replace(/ئ/g, "ي")
+    .replace(/[ًٌٍَُِّْ]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+  
   const searchName = normalize(name);
 
   const sheetId = process.env.SHEET_ID;
